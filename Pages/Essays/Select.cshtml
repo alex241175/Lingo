@@ -1,0 +1,110 @@
+﻿@page
+@model Lingo.Pages.Essays.SelectModel
+@{
+    ViewData["Title"] = "Select Sample Essay";
+}
+
+<h3>Select Sample Essays</h3>
+<form method="get" class="form-inline my-4">
+    <div class="form-group">
+        <label for="language" class="mx-2">Language</label>
+        <select id="language" class="form-control" asp-for="Language" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>English</option>
+            <option>Malay</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category" class="mx-2">Category</label>
+        <select id="category" class="form-control" asp-for="Category" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Advanced</option>
+        </select>
+    </div>
+</form>
+<div class="form-group">
+    <button class="btn btn-primary" id="selectSamples">Add</button>
+</div>
+
+<partial name="_Pagination" />
+
+@if(Model.Samples.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No sample essay found!</div>
+}
+else
+{
+     <form id="selectForm" asp-page-handler="select" method="get">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th><input id="selectall" type="checkbox" value=""></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">Source</th>
+                    <th scope="col">Category</th>
+                </tr>
+            </thead>
+            @foreach(var s in Model.Samples)
+            {
+                <tr>
+                    <td><input name="Selected" class="checkbox" type="checkbox" value="@s.SampleId"></td>
+                    <td><a OnClick="showText(@s.SampleId)">@s.Title</a></td>
+                    <td>@s.Language</td>
+                    <td>@s.Source</td>
+                    <td>@s.Category</td>
+                </tr>            
+            }
+        </table>
+    </form>
+    <!-- modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sampleTitle"></h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="sampleText"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{ 
+    <script>
+        function showText(sampleId){                    
+            fetch('../../api/sample/' + sampleId)
+                .then(response => response.json())
+                .then(response => {
+                    $('#sampleText').html(response.text)
+                    $('#sampleTitle').html(response.title)
+                    $('#modal').modal('show')
+            })
+        }
+
+        $(document).ready(function () {
+            $('#selectall').click(function (event) {
+                if (this.checked) {
+                    $('.checkbox').each(function () { //loop through each checkbox
+                        $(this).prop('checked', true); //check 
+                    });
+                } else {
+                    $('.checkbox').each(function () { //loop through each checkbox
+                        $(this).prop('checked', false); //uncheck              
+                    });
+                }
+            });
+            $('#selectSamples').click(function (event) {
+               $('form#selectForm').trigger('submit');
+            });
+        });  
+ 
+    </script>
+}

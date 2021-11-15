@@ -1,0 +1,63 @@
+@page
+@model Lingo.Pages.Essays.IndexModel
+@{
+    ViewData["Title"] = "Essay";
+}
+
+<h3>Essays</h3>
+<form method="POST" class="form-inline my-4">
+    <div class="form-group">
+        <button class="btn btn-primary" asp-page="./Create">Add New</button>
+        <!-- not sure why asp-page="./Select" will always lead to post request -->
+        <a class="btn btn-primary ml-2" href="/Essays/Select?Language=@Model.Language">Select Essay</a>  
+    </div>
+    <div class="form-group">
+        <label for="language" class="mx-2">Language</label>
+        <select id="language" class="form-control" asp-for="Language" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>English</option>
+            <option>Malay</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category" class="mx-2">Category</label>
+        <select id="category" class="form-control" asp-for="Category" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Advanced</option>
+        </select>
+    </div>
+</form>
+
+<partial name="_Pagination" />
+
+@if(Model.Essays.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No essay found!</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Language</th>
+                <th scope="col">Source</th>
+                <th scope="col">Category</th>
+            </tr>
+        </thead>
+        @foreach(var e in Model.Essays)
+        {
+            <tr>
+                <td><a asp-page="./Details" asp-route-essayId="@e.EssayId">@e.Title</a></td>
+                <td>@e.Language</td>
+                <td>@e.Source</td>
+                <td>@e.Category</td>
+            </tr>            
+        }
+    </table>
+}
+
+
+

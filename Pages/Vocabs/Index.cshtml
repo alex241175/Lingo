@@ -1,0 +1,229 @@
+@page
+@{
+    ViewData["Title"] = "Vocab";
+}
+@using Lingo.Services
+@inject Auth auth
+
+<div id="app" class="row">
+    <!-- Vocab list -->
+     <div>
+        <h3>Vocabulary List</h3>
+        <div>
+            <form class="form-inline my-4">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" v-on:click="adding">Add</button>
+                </div>
+                <div class="form-group">
+                    <label for="language" class="mx-2">Language</label>
+                    <select id="language" class="form-control" v-model="filterLanguage" v-on:change="load">
+                        <option selected>Choose...</option>
+                        <option>English</option>
+                        <option>Malay</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-secondary mx-2" v-on:click="toggleChinese">中文</button>
+                </div>
+            </form>
+            <partial name="_PaginationVue" />            
+            <div v-if="vocabs.length == 0" class="alert alert-info" role="alert">No vocab found!</div>
+            <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
+                <div class="col-2 vocab-item">{{ index + 1 }}</div>
+                <div class="col-5 vocab-item hand" v-text="v.text" v-on:click="updating(v)"></div>
+                <div class="col-3 vocab-item" ><span v-if="showChinese" v-text="v.chinese"></span></div>
+                <div class="col-2 vocab-item">
+                    <button v-on:click="remove(v.vocabId)" >Del</button>
+                </div>            
+            </div>
+        </div>       
+    </div> <!-- vocab list -->
+    <!-- modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab' : 'New Vocab'}}</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                         <div class="form-group">
+                            <label for="text" class="col-form-label">Language:</label>                            
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="English">English
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="Malay">Malay
+                                </label>
+                            </div>
+                         </div>
+                        <div class="form-group">
+                            <label for="text" class="col-form-label">Text:</label>
+                            <input type="text" class="form-control" id="text" v-model="vocab.text" autocomplete="off">
+                            <button type="button" class="btn btn-primary" v-on:click="translate">Google Translate</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Chinese:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="vocab.chinese" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="note" class="col-form-label">Note:</label>
+                            <textarea rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="upsert">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        // has to embed vue.js in this razor page. If linked to external js, cannot insert value from view model
+        const app =  new Vue({
+            el: '#app',
+            data() {
+            return {
+                //in vue.js, all properties must start with small letter
+                filterLanguage:'Choose...',
+                currentLanguage:'Choose...',
+                showChinese: true,
+                vocabs:[],
+                vocab:{
+                    language: '',
+                    text:'',
+                    chinese:'',
+                    note:'',
+                    essayId: '',
+                    category:'',
+                    userId:@auth.UserId,
+                    review:false,
+                },
+                defaultVocab:{
+                    language: '',
+                    text:'',
+                    chinese:'',
+                    note:'',
+                    essayId: 4,
+                    category:'',
+                    userId:1,
+                    review:false,
+                },
+                pageSize: 5,
+                currentPage : 0,
+                count: 0,
+            }
+            },
+            created(){
+                this.load(1)
+            },
+            computed:{
+                totalPages(){
+                    return Math.ceil(this.count/this.pageSize)
+                },
+                showPrevious(){
+                    return this.currentPage > 1
+                },
+                showNext(){
+                    return this.currentPage < this.totalPages
+                }
+            },
+            methods:{
+                load(currentPage){
+                    if (this.currentLanguage != this.filterLanguage){ // switching to new language
+                        this.currentPage = 1
+                        this.currentLanguage = this.filterLanguage
+                    }else{
+                        this.currentPage = currentPage
+                    }
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    fetch(`./api/vocab/?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocabs = response.data
+                        this.count = response.count
+                    })
+                },
+                toggleChinese(){
+                    this.showChinese = !this.showChinese
+                },
+                adding(){
+                    this.vocab = {...this.defaultVocab}
+                    console.log('vocab', this.vocab)
+                    $('#modal').modal('show')
+                },
+                updating(v){
+                    this.vocab = {...v}
+                    $('#modal').modal('show')
+                },
+                upsert(){
+                    let operation = 'POST'
+                    // first letter convert to capital letter
+                    const vocab = {
+                        Language: this.vocab.language,
+                        Text:this.vocab.text,
+                        Chinese:this.vocab.chinese,
+                        Note:this.vocab.note,                
+                        EssayId: this.vocab.essayId,
+                        Category:this.vocab.category,
+                        UserId:this.vocab.userId,
+                        Review:this.vocab.review,
+                    }
+                    if (this.vocab.vocabId){
+                        vocab.VocabId = this.vocab.vocabId
+                        operation = 'PUT'
+                    }
+                    fetch('./api/vocab',{
+                        method: operation, 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(vocab),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocab = {...this.defaultVocab}
+                        this.loadVocabList()
+                         $('#modal').modal('hide')
+                    })
+                },
+                remove(vocabId){                    
+                    // remove vocab in db
+                    fetch('./api/vocab/'+vocabId,{ method:'delete'})
+                    .then(response => response.json())
+                    .then(response => {
+                        this.loadVocabList()
+                        toastr.options = {
+                            timeOut: "1000",
+                        }
+                        toastr.success('Deleted')
+                    })
+                },
+
+                translate(){
+                    const sourceText = this.vocab.text                    
+                    fetch(`./api/vocab/translate/${sourceText}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        const obj = JSON.parse(response);
+                        const result = obj.data.translations[0].translatedText
+                        this.vocab.chinese = result                        
+                    })
+                }
+            }
+        })
+    </script>
+}
+
+
+

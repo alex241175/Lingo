@@ -1,0 +1,32 @@
+@page "{userId}"
+@model Lingo.Pages.Users.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+@if (Model.User != null)
+{
+
+    <div>
+        <a class="btn btn-primary" asp-page="./Edit" asp-route-userId="@Model.User.UserId">Edit</a>
+        <a class="btn btn-danger" asp-page="./Delete" asp-route-userId="@Model.User.UserId">Delete</a>
+    </div>  
+}
+
+<div>
+    <b>User Name:</b><br/>
+    <span>@Model.User.UserName</span>
+</div>
+
+<div>
+    <b>Email:</b><br/>
+    <span>@Model.User.Email</span>
+</div>
+
+<div>
+    <b>Password:</b><br/>
+    <span>@Model.User.Password</span>
+</div>
+

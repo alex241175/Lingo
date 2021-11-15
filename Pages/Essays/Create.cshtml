@@ -1,0 +1,49 @@
+@page
+@model Lingo.Pages.Essays.CreateModel
+@{
+    ViewData["Title"] = "Create Essay";
+}
+
+<h1>Create Essay</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Essay.Title"></label>
+        <input class="form-control" asp-for="@Model.Essay.Title" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Title"></span>
+    </div>
+    <div class="form-group">     
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Language</label>
+            @foreach (var language in Model.Languages)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Essay.Language" value="@language" /><label class="form-check-label">@language</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Language"></span>
+        </div>
+    </div>
+    <div class="form-group">    
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Category</label>
+            @foreach (var category in Model.Categories)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Essay.Category" value="@category" /><label class="form-check-label">@category</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Category"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Essay.Source"></label>
+        <input class="form-control" asp-for="@Model.Essay.Source" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Source"></span>
+    </div>
+    <!-- https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ -->
+     <div class="form-group">
+        <label asp-for="@Model.Essay.Text"></label>
+        <div class="grow-wrap">
+            <textarea class="form-control" asp-for="@Model.Essay.Text" onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+        </div>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Text"></span>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Create" />
+</form>

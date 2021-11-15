@@ -1,0 +1,59 @@
+GET https://localhost:5001/api/vocab HTTP/1.1
+
+###
+
+GET https://localhost:5001/api/vocab/essay/4 HTTP/1.1
+
+###
+
+
+GET https://localhost:5001/api/essay/4 HTTP/1.1
+
+###
+
+POST https://localhost:5001/api/vocab HTTP/1.1
+content-type: application/json
+
+{
+    "language": "English",
+    "text": "jka",
+    "chinese": "jka",
+    "note": "a",
+    "review": false,
+    "category": "Essay",
+    "essayId": 4,
+    "userId": 1
+}
+###
+
+PUT https://localhost:5001/api/vocab HTTP/1.1
+content-type: application/json
+
+{
+    "vocabId": 1,
+    "language": "English",
+    "text": "aaaaaaa",
+    "chinese": "jka",
+    "note": "a",
+    "review": false,
+    "category": "Essay",
+    "essayId": 4,
+    "userId": 1
+}
+
+###
+
+PUT https://localhost:5001/api/essay/5 HTTP/1.1
+content-type: application/json
+
+"aaaa"
+###
+
+
+https://translation.googleapis.com/language/translate/v2?key=AIzaSyDDTxvvy4APx1xLDuMYHc0BU2HMd8lBVHI&q=cheese&target=zh
+
+###
+
+GET https://localhost:5001/api/vocab/translate/boy HTTP/1.1
+
+###

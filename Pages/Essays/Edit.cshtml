@@ -1,0 +1,58 @@
+@page "{essayId}"
+@model Lingo.Pages.Essays.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Essay</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="@Model.Essay.EssayId" />
+    <input type="hidden" asp-for="@Model.Essay.Created" />
+    <div class="form-group">
+        <label asp-for="@Model.Essay.Title"></label><br/>
+        <input class="form-control" asp-for="@Model.Essay.Title" /><br/>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Title"></span>
+    </div>        
+    <div class="form-group">     
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Language</label>
+            @foreach (var language in Model.Languages)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Essay.Language" value="@language" /><label class="form-check-label">@language</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Language"></span>
+        </div>
+    </div>
+    <div class="form-group">    
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Category</label>
+            @foreach (var category in Model.Categories)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Essay.Category" value="@category" /><label class="form-check-label">@category</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Category"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Essay.Source"></label>
+        <input class="form-control" asp-for="@Model.Essay.Source" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Source"></span>
+    </div>
+    <!-- https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ -->
+     <div class="form-group">
+        <label asp-for="@Model.Essay.Text"></label>
+        <div class="grow-wrap">
+            <textarea id="text" class="form-control" asp-for="@Model.Essay.Text" onInput="this.parentNode.dataset.replicatedValue = this.value"></textarea>
+        </div>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Essay.Text"></span>
+    </div>
+    <input class="btn btn-danger" type="submit" value="Update" />
+</form>
+
+@section scripts {    
+<script>
+    //trigger input event to auto size textarea
+    $("#text").trigger("input");
+</script>
+}

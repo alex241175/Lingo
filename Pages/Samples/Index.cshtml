@@ -1,0 +1,66 @@
+@page
+@model Lingo.Pages.Samples.IndexModel
+@{
+    ViewData["Title"] = "Sample Essay";
+}
+
+<h3>Sample Essays</h3>
+<form method="get" class="form-inline my-4">
+    <div class="form-group">
+        <a class="btn btn-primary" href="/Samples/Create/?Language=@Model.Language&Category=@Model.Category">Add New</a>
+    </div>
+    <div class="form-group">
+        <label for="language" class="mx-2">Language</label>
+        <select id="language" class="form-control" asp-for="Language" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>English</option>
+            <option>Malay</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="category" class="mx-2">Category</label>
+        <select id="category" class="form-control" asp-for="Category" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Advanced</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input id="query" class="form-control mx-2" placeholder="Searching..." asp-for="Query" onblur="this.form.submit()"></input>
+    </div>
+</form>
+
+<partial name="_Pagination" />
+
+@if(Model.Samples.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No sample essay found!</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Language</th>
+                <th scope="col">Source</th>
+                <th scope="col">Category</th>
+                <th scope="col">Created</th>             
+            </tr>
+        </thead>
+    @foreach(var s in Model.Samples)
+    {
+    <tr>
+        <td><a asp-page="./Details" asp-route-sampleId="@s.SampleId" asp-route-language="@Model.Language" asp-route-category="@Model.Category" asp-route-query="@Model.Query">@s.Title</a></td>
+        <td>@s.Language</td>
+        <td>@s.Source</td>
+        <td>@s.Category</td>
+        <td>@s.Created.ToString("yyyy/MM/dd")</td>
+    </tr>            
+    }
+    </table>
+}
+
+
+

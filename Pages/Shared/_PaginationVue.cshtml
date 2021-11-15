@@ -1,0 +1,17 @@
+<div>
+    <ul class="pagination">
+
+        <li v-if="showPrevious" class="page-item">
+            <button v-on:click="load(currentPage - 1)" class="page-link">Previous</button>
+        </li>
+        <template v-for="(index, p) in totalPages">
+            <li class="page-item" v-bind:class=" index == currentPage ? 'active' : ''">
+                <button v-on:click="load(index)" class="page-link">{{ index }}</button>
+            </li>
+        </template>
+
+        <li v-if="showNext" class="page-item">
+            <button v-on:click="load(currentPage + 1)" class="page-link">Next</button>
+        </li>
+    </ul>
+</div>
