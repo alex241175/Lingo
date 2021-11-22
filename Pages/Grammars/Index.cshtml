@@ -1,0 +1,61 @@
+@page
+@model Lingo.Pages.Grammars.IndexModel
+@using Lingo.Services
+@inject Auth auth
+@{
+    ViewData["Title"] = "Grammar";
+}
+
+<h3>Grammar Essays</h3>
+<form method="get" class="form-inline my-4">
+    @if (auth.IsAdmin){
+        <div class="form-group">
+            <a class="btn btn-primary" href="/Grammars/Create/?Language=@Model.Language&Category=@Model.Category">Add New</a>
+        </div>
+    }
+    <div class="form-group">
+        <label for="language" class="mx-2">Language</label>
+        <select id="language" class="form-control" asp-for="Language" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>English</option>
+            <option>Malay</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input id="category" class="form-control mx-2" placeholder="Category..." asp-for="Category" onblur="this.form.submit()"></input>
+    </div>
+    <div class="form-group">
+        <input id="query" class="form-control mx-2" placeholder="Searching..." asp-for="Query" onblur="this.form.submit()"></input>
+    </div>
+</form>
+
+@if(Model.Grammars.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No grammar essay found!</div>
+}
+else
+{
+    <partial name="_Pagination" />
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Language</th>
+                <th scope="col">Category</th>
+                <th scope="col">Created</th>             
+            </tr>
+        </thead>
+    @foreach(var s in Model.Grammars)
+    {
+    <tr>
+        <td><a asp-page="./Details" asp-route-grammarId="@s.GrammarId" asp-route-language="@Model.Language" asp-route-category="@Model.Category" asp-route-query="@Model.Query">@s.Title</a></td>
+        <td>@s.Language</td>
+        <td>@s.Category</td>
+        <td>@s.Created.ToString("yyyy/MM/dd")</td>
+    </tr>            
+    }
+    </table>
+}
+
+
+

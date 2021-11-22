@@ -1,0 +1,64 @@
+@page "{grammarId}"
+@model Lingo.Pages.Grammars.EditModel
+@{
+    ViewData["Title"] = "Edit Grammar Essay";
+}
+
+<h1>Edit Grammar Essay</h1>
+
+<form id="updateForm" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.Grammar.GrammarId" />
+    <input type="hidden" asp-for="@Model.Grammar.Created" />
+    <input type="hidden" asp-for="@Model.Grammar.Filename" />
+    <div class="form-group">
+        <label asp-for="@Model.Grammar.Title"></label><br/>
+        <input class="form-control" asp-for="@Model.Grammar.Title" /><br/>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Title"></span>
+    </div>        
+    <div class="form-group">     
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Language</label>
+            @foreach (var language in Model.Languages)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Grammar.Language" value="@language" /><label class="form-check-label">@language</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Language"></span>
+        </div>
+    </div>
+    <div class="form-group">    
+        <label asp-for="@Model.Grammar.Category"></label><br/>
+        <input class="form-control" asp-for="@Model.Grammar.Category" /><br/>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Category"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Grammar.Source"></label>
+        <input class="form-control" asp-for="@Model.Grammar.Source" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Source"></span>
+    </div>
+     <div class="form-group">
+         @if (!String.IsNullOrWhiteSpace(Model.Grammar.Filename)){
+            <label class="mr-4"> Existing file : @Model.Grammar.Filename</label> 
+            <input class="btn btn-secondary btn-sm" type="submit" value="Delete File" form="deleteFileForm" />
+         }else{
+            <label>Upload PDF File</label>
+            <input type="file" asp-for="Upload" accept=".pdf"/>
+        }
+    </div>
+     <div class="form-group">
+        <label asp-for="@Model.Grammar.Text"></label>
+        <textarea id="text" class="form-control" asp-for="@Model.Grammar.Text"></textarea>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Text"></span>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Update" form="updateForm"/>
+</form>
+
+<form id="deleteFileForm" method="post" asp-page-handler="deleteFile" asp-route-essayId="@Model.Grammar.GrammarId" >
+</form>
+@section Scripts{
+    <script>
+     tinymce.init({
+        selector: 'textarea',  // change this value according to your HTML
+        plugins: 'autoresize'
+    });
+    </script>
+}

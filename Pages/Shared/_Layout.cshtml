@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-</head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/></head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -46,15 +46,24 @@
                         </li>
                         @if (auth.IsLogin){
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Grammars/Index">Grammar</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Essays/Index">Essay</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Vocabs/Index">Vocab</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Results/Index">Result</a>
+                            </li>
                         }
                         @if (auth.IsAdmin){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Samples/Index">Sample</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Import/Index">Import</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Users/Index">User</a>
@@ -93,7 +102,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap3-typeahead.js" asp-append-version="true"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/25i7f58pz09k5qfcxxmaiwnujkeku7kwoi3w61n9dmf9p5l2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://unpkg.com/vue/dist/vue.js" asp-append-version="true"></script>
     <script src="~/js/func.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

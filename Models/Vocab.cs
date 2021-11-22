@@ -14,10 +14,9 @@ namespace Lingo.Models
         public string Text { get; set; }
         public string Chinese { get; set; }       
         public string Note {get;set;}
-        public bool Review { get; set; }
-        public string Category { get; set; }
+        public string Category { get; set; }  // User, 1000, 3000, 6000, Phrasal Verb
         public int? EssayId { get; set; }   // nullable for those vocab not from essay
-        public int UserId { get; set; }
+        public int? UserId { get; set; }    // nullable for standard category 
         public DateTime Created { get; set; }
     
     }

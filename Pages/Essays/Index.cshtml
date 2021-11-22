@@ -5,11 +5,11 @@
 }
 
 <h3>Essays</h3>
-<form method="POST" class="form-inline my-4">
+<form method="get" class="form-inline my-4">
     <div class="form-group">
         <button class="btn btn-primary" asp-page="./Create">Add New</button>
         <!-- not sure why asp-page="./Select" will always lead to post request -->
-        <a class="btn btn-primary ml-2" href="/Essays/Select?Language=@Model.Language">Select Essay</a>  
+        <a class="btn btn-primary ml-2" href="./Essays/Select?Language=@Model.Language">Select Essay</a>  
     </div>
     <div class="form-group">
         <label for="language" class="mx-2">Language</label>
@@ -28,9 +28,13 @@
             <option>Advanced</option>
         </select>
     </div>
+    <div class="form-group">
+        <input id="query" class="form-control mx-2" placeholder="Searching..." asp-for="Query" onblur="this.form.submit()"></input>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" asp-page="./Index">X</button>
+        </div>
+    </div>
 </form>
-
-<partial name="_Pagination" />
 
 @if(Model.Essays.Count == 0)
 {
@@ -38,6 +42,7 @@
 }
 else
 {
+    <partial name="_Pagination" />
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -45,6 +50,7 @@ else
                 <th scope="col">Language</th>
                 <th scope="col">Source</th>
                 <th scope="col">Category</th>
+                <th scope="col">Created</th>  
             </tr>
         </thead>
         @foreach(var e in Model.Essays)
@@ -54,6 +60,7 @@ else
                 <td>@e.Language</td>
                 <td>@e.Source</td>
                 <td>@e.Category</td>
+                <td>@e.Created.ToString("yyyy/MM/dd")</td>
             </tr>            
         }
     </table>

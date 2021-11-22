@@ -1,0 +1,864 @@
+id,en,bm,zh,note_zh,note_en,user,revision,date
+26,,berkenalan,v. 認識,,,yuhui,1,1595428328
+27,,suasana,n. 環境,,,yuhui,1,1595428721
+28,,menyerahkan,v. 交出,,,yuhui,1,1595428732
+29,,peramah,adj. 和藹可親,,,yuhui,1,1595428753
+30,,senarai nama,名單,,,yuhui,1,1595428766
+31,,melancarkan,v. 使順利進行,,,yuhui,1,1595428782
+32,,berasal,v. 來自,,,yuhui,1,1595428800
+33,,ditetapkan,v. 被規定,,,yuhui,1,1595428820
+34,,rangkai,n. 短句,,,yuhui,1,1595428839
+35,,persimpangan,三叉路口,,,yuhui,1,1595428856
+36,,ditahan,v. 攔截,,,yuhui,1,1595428875
+37,,entah,可能，或許,,,yuhui,1,1595428890
+38,,tampil,出現,,,yuhui,1,1595428903
+39,,kesempatan,機會,=peluang,,yuhui,1,1595428919
+40,,menjamu selara,v. 用餐,,,yuhui,1,1595428960
+41,,menghulurkan,v. 給予,memberikan,,yuhui,1,1595428982
+42,,menziarahi,v. 拜訪,mengunjungi,,yuhui,1,1595429000
+43,,perangai,行為,kelakuan,,yuhui,1,1595429018
+44,,bertatasusila,有好的品行,,,yuhui,1,1595429043
+45,,disindir,諷剌,=diejek,,yuhui,1,1595429079
+46,,dikeji,v. 侮辱,=dihina,,yuhui,0,1595508485
+47,,menggerunkan,v. 使害怕,,,yuhui,0,1595508511
+48,,perselisihan,n. 意見分歧,,,yuhui,0,1595508548
+49,,berbudi,有良好的品行,,,yuhui,0,1595508564
+50,,semai,培養,pupuk,,yuhui,0,1595508583
+51,,komitmen,n. 投入,,,yuhui,0,1595508600
+52,,mulia,光榮、崇高,,,yuhui,0,1595508619
+53,,sambut,v. 歡迎、慶祝,,,yuhui,0,1595508639
+54,,tujuan,n. 目的,,,yuhui,0,1595508650
+55,,semata-mata,完全是,,,yuhui,1,1595508664
+56,,menhargai,珍惜,,,yuhui,0,1595508677
+57,,mengenang,v. 回憶、紀念,,,yuhui,0,1595508693
+58,,jasa bakti,n. 功勞、恩惠,,,yuhui,0,1595508711
+59,,pendidikan,n. 教育,,,yuhui,0,1595508719
+60,,sanggup,愿意,,,yuhui,0,1595508729
+61,,mengorbankan (korban),犧牲,"
+",,yuhui,0,1595508751
+62,,tenaga,精力、精神,,,yuhui,1,1595508763
+63,,meningkatkan,v. 提昇,,,yuhui,0,1595508783
+64,,membentuk,v. 塑造,,,yuhui,0,1595508834
+65,,sifat,n. 個性、氣質,,,yuhui,0,1595508850
+66,,semangat,n. 精神,,,yuhui,0,1595508862
+67,,tabur,v. 散播,,,yuhui,0,1595508879
+68,,pukul,v. 打,,,yuhui,0,1595508888
+69,,ugut,v. 恐嚇,=ancam,,yuhui,0,1595508911
+70,,seolah-olah,好像,,,yuhui,0,1595508922
+71,,cabar,v. 挑戰,"cabaran
+tercabar",,yuhui,0,1595508953
+72,,pupus,v. 消滅,,,yuhui,0,1595508991
+73,,kian,越,,,yuhui,0,1595509001
+74,,mengatasi,v. 解決,,,yuhui,0,1595509016
+75,,seharusnya,必須,,,yuhui,0,1595509049
+76,,jadi,因此,,,yuhui,0,1595509060
+77,,agama,宗教,,,yuhui,0,1595509076
+78,,sesungguhnya,的確,=sebenarnya,,yuhui,0,1595509098
+79,,mengelakkan,避免,,,yuhui,0,1595509122
+80,,terjalin,被維持,,,yuhui,0,1595509138
+81,,rekreasi,n. 休閒,,,yuhui,0,1595509286
+82,,bangku,n. 凳子,,,yuhui,0,1595509317
+83,,bertuah,adj. 有福氣,,,yuhui,0,1595509397
+84,,meninggalkan,離開,,,yuhui,0,1595509415
+85,,maaf,原諒,,,yuhui,0,1595509440
+152,,daerah,n. 縣,,,yuhui,0,1595767690
+153,,semenanjung,n. 半島,,,yuhui,0,1595767712
+154,,sempadan,n. 界線,,,yuhui,0,1595767734
+155,,pekan,n. 小鎮,,,yuhui,0,1595767746
+156,,sebenarnya,事實上,,,yuhui,0,1595767761
+157,,gelaran,n. 稱號,,,yuhui,0,1595767777
+158,,perahu,n. 小船,,,yuhui,0,1595767790
+159,,berubah,v. 改變,,,yuhui,0,1595767801
+160,,budaya,n. 文化,,,yuhui,0,1595767810
+161,,menganut,v. 信奉,,,yuhui,0,1595767828
+162,,daya menarik,n. 吸引力,,,yuhui,0,1595767852
+163,,pokok bakau,n. 紅樹林,,,yuhui,0,1595767882
+164,,menawarkan,v. 提供,,,yuhui,0,1595767903
+165,,mampu,可以,,,yuhui,0,1595767913
+166,,alam semula,n. 大自然,,,yuhui,0,1595767932
+167,,berpuas hati,滿意,,,yuhui,0,1595767942
+168,,menghargai,v. 珍惜,,,yuhui,0,1595767962
+169,,tamak,adj. 貪心,,,yuhui,0,1595767973
+170,,rasuah,n. 賄賂,,,yuhui,0,1595767992
+171,,tangkap,v. 抓拿,,,yuhui,0,1595768009
+172,,kera,n. 猴子,,,yuhui,0,1595768034
+173,,saling,互相,,,yuhui,0,1595768047
+174,,bermalam,過夜,,,yuhui,0,1595768491
+175,,bayar,v. 支付,,,yuhui,0,1595768506
+176,,selimut,n. 被單,,,yuhui,0,1595768520
+177,,bantal,n. 枕頭,,,yuhui,0,1595768533
+178,,tuala,n. 毛巾,,,yuhui,0,1595768545
+179,,tukar,v. 更換,,,yuhui,0,1595768561
+180,,bahagia,adj. 幸福,,,yuhui,0,1595768615
+181,,bersatu padu,v. 團結,,,yuhui,0,1595768634
+182,,kesejahteraan,n. 安寧,,,yuhui,0,1595768649
+183,,denda,v. 罰款,,,yuhui,0,1595768670
+184,,sangsi,v. 懷疑,,,yuhui,0,1595768683
+185,,jurujual,n. 推銷員,,,yuhui,0,1595768698
+186,,penerangan,n. 解說,,,yuhui,0,1595768708
+187,,aduan,n. 投訴,,,yuhui,0,1595768716
+188,,siasatan,n. 調查,,,yuhui,0,1595768724
+189,,kerajaan,n. 政府,,,yuhui,0,1595768739
+190,,teka-teki,n. 謎語,,,yuhui,0,1595768757
+191,,cinta,愛,,,yuhui,0,1595768769
+192,,bertoleransi,容忍,,,yuhui,0,1595768784
+193,,tidur lena,熟睡,,,yuhui,0,1595768796
+194,,terkini,adj. 最新,,,yuhui,0,1595768811
+195,,menyebabkan,v. 造成,,,yuhui,0,1595768830
+196,,sukar,adj. 困難,=susah,,yuhui,0,1595768842
+197,,sewajarnya,一定要,,,yuhui,0,1595768862
+198,,panel hakim,n. 評判團,,,yuhui,0,1595768885
+199,,berpendapat,有意見,,,yuhui,0,1595768905
+200,,wang tunai,n. 現今,,,yuhui,0,1595769200
+201,,hantar ,v. 送,,,yuhui,0,1595769215
+202,,memperlihatkan,展示,,,yuhui,0,1596171492
+203,,kristian,基督教,,,yuhui,0,1596171504
+204,,buddha,n. 佛教,,,yuhui,0,1596171548
+205,,kegiatan,n. 活動,,,yuhui,0,1596171563
+206,,tetamu,n. 客人,,,yuhui,0,1596171581
+207,,penjajahan,n. 殖民,,,yuhui,0,1596171605
+208,,jurang,n. 溝,,,yuhui,0,1596171613
+209,,mahir,adj. 熟練,,,yuhui,0,1596171623
+210,,ciri-ciri,n. 特征,,,yuhui,0,1596171634
+211,,rumusan,n. 縮短文,,,yuhui,0,1596171659
+212,,kebanggaan,n. 光榮,,,yuhui,0,1596171680
+213,,melombong,v. 採礦,,,yuhui,0,1596171699
+214,,bijih timah,n. 錫礦,,,yuhui,0,1596171715
+215,,menoreh getah,v. 割膠,,,yuhui,0,1596171730
+216,,bersawah padi,v. 種稻米,,,yuhui,0,1596171743
+217,,penangkapan ikan,n. 捕魚,,,yuhui,0,1596171771
+218,,pertanian,n. 農業,,,yuhui,0,1596171784
+219,,pengangkutan,n. 運輸業,,,yuhui,0,1596171819
+220,,perhubungan,n. 通訊業,,,yuhui,0,1596171833
+221,,sesal,後悔,,,yuhui,0,1596171845
+222,,memohon,v. 申請,,,yuhui,0,1596171853
+223,,sekiranya,如果,,,yuhui,0,1596171864
+224,,bertemu,v. 相會,,,yuhui,0,1596171899
+225,,tuduh,v. 指控,,,yuhui,0,1596171909
+226,,bila-bila,任何時間,,,yuhui,0,1596171925
+227,,sedar,知道,,,yuhui,0,1596171939
+228,,dewasa,現今,,,yuhui,0,1596173786
+229,,generasi muda,n. 年輕的一代,,,yuhui,0,1596173809
+230,,dianggap,v. 被認為,,,yuhui,0,1596173824
+231,,pesat,adj. 迅速,,,yuhui,0,1596173864
+232,,kajian,n. 研究,,,yuhui,0,1596173872
+233,,sempurna,adj. 完整,,,yuhui,0,1596173881
+234,,mengalih,v. 轉換,,,yuhui,0,1596173891
+235,,ditubuhkan,v. 被成立,,,yuhui,0,1596173906
+236,,gulai,n. 咖哩湯,,,yuhui,0,1596173920
+237,,bersandar,v. 躺著,,,yuhui,0,1596173937
+238,,deklamasi,朗誦,"
+",,yuhui,0,1596173958
+239,,sajak,n. 詩歌,,,yuhui,0,1596173975
+240,,penuh,adj. 滿,,,yuhui,0,1596173985
+241,,perasaan,n. 感情,,,yuhui,0,1596174001
+242,,sambun,n. 肥皂,,,yuhui,0,1596174018
+243,,musnah,v. 毀壞,,,yuhui,0,1596174037
+244,,jilit,v. 舔,,,yuhui,0,1596174115
+245,,terperanjat,吃惊,,,yuhui,0,1596174140
+246,,bubuh,v. 添加,,,yuhui,0,1596174183
+247,,teres,n. 排屋,,,yuhui,0,1596174195
+248,,kawasan lapang,n. 空地,,,yuhui,0,1596174208
+249,,menghalau,v. 驅趕,,,yuhui,0,1596174234
+250,,kuah,n. 湯,,,yuhui,0,1596174244
+251,,berkenan,v. 同意,,,yuhui,0,1596174259
+252,,memastikan,v. 確保,,,yuhui,0,1596174275
+253,,beras,n. 白米,,,yuhui,0,1596174286
+254,,hampir habis,快要完了,,,yuhui,0,1596174299
+255,,enggan,不願意,,,yuhui,0,1596174311
+256,,pelanggan,n. 顧客,,,yuhui,0,1596174333
+257,,selesai,完畢,,,yuhui,0,1596174342
+258,,gaji,n. 薪水,,,yuhui,0,1596174351
+259,,pujian,n. 稱贊,,,yuhui,0,1596174361
+260,,hanya,只有,,,yuhui,0,1596174371
+261,,memang,當然,,,yuhui,0,1596174380
+262,,pingat,獎牌,,,yuhui,0,1596174392
+263,,menghalang,妨礙,,,yuhui,0,1596174420
+264,,isteri,n. 妻子,,,yuhui,0,1596174428
+265,,teruk,adj. 糟糕,,,yuhui,0,1596174445
+266,,keputusan,n. 決定,,,yuhui,0,1596174455
+267,,kecuaian,n. 馬虎,,,yuhui,0,1596174485
+268,,keuntungan,n. 利潤,,,yuhui,0,1596174517
+269,,anak sulung,n. 長子,,,yuhui,0,1596174543
+270,,jiran tetangga,n. 鄰居,,,yuhui,0,1596174557
+271,,daya,n. 能力,,,yuhui,0,1596174565
+272,,kehendak,n. 意愿,,,yuhui,0,1596174582
+273,,majlis perasmian,開幕典禮,,,yuhui,0,1596174607
+274,,diganggu,v. 被干擾,,,yuhui,0,1596174623
+275,,akrab,adj. 親密,,,yuhui,0,1596174634
+276,,layak,adj. 有資格,,,yuhui,0,1596174649
+277,,jawatan,n. 職位,,,yuhui,0,1596174663
+278,,setuju,v. 同意,,,yuhui,0,1596174685
+279,,kilat,n. 閃電,,,yuhui,0,1596174703
+280,,cerpen,n. 短篇小說,,,yuhui,0,1596174716
+281,,dompet,n. 錢包,,,yuhui,0,1596174732
+282,,keluh,怨言,,,yuhui,0,1596174741
+283,,suami,丈夫,,,yuhui,0,1596174756
+284,,persahabatan,友誼,,,yuhui,0,1596174773
+285,,lucu,笑話,,,yuhui,0,1596174782
+286,,meragut,v. 搶奪,,,yuhui,0,1596174797
+287,,pinggan,盤,,,yuhui,0,1596174847
+288,,sudu,湯匙,,,yuhui,0,1596174855
+289,,menyelam,v. 潛水,,,yuhui,0,1596174945
+290,,gunung berapi,n. 火山,,,yuhui,0,1597457541
+291,,ratusan,數百個,,,yuhui,0,1597457559
+292,,bumi,n. 地球,,,yuhui,0,1597457569
+293,,letup,v. 爆炸,,,yuhui,0,1597457582
+294,,debu,n. 灰塵,,,yuhui,0,1597457591
+295,,eropah,n. 歐洲,,,yuhui,0,1597457605
+296,,liar,adj 野生,,,yuhui,0,1597457616
+297,,keliar,閒逛,,,yuhui,0,1597457643
+298,,tempiar,四散,,,yuhui,0,1597457654
+299,,fenomena ,n. 現象,,,yuhui,0,1597457665
+300,,melumpuhkan,v. 使癱瘓,,,yuhui,0,1597457684
+301,,ekonomi,n. 經濟,,,yuhui,0,1597457695
+302,,bencana alam,n. 天災,,,yuhui,0,1597457706
+303,,meneruskan,v. 繼續,,,yuhui,0,1597457716
+304,,hadiah,n. 禮物,,,yuhui,0,1597457723
+305,,kehidupan harian,n. 日常生活,,,yuhui,0,1597457735
+306,,berjaga-jaga,v. 提防,,,yuhui,0,1597457745
+307,,tanpa,沒有,,,yuhui,0,1597457756
+308,,kompar,n. 羅盤,,,yuhui,0,1597457772
+309,,musim sejuk,n. 冬天,,,yuhui,0,1597457791
+310,,senjata,n. 武器,,,yuhui,0,1597457799
+311,,lembing,n. 矛,,,yuhui,0,1597457817
+312,,sumber,n. 來源,,,yuhui,0,1597457845
+313,,perikanan,n. 補魚業,,,yuhui,0,1597457870
+314,,musim dingin,n. 冬天,,,yuhui,0,1597457890
+315,,dasar,v. 依據,,,yuhui,0,1597457924
+316,,susah,adj 困難,,,yuhui,0,1597457936
+317,,perasmian,n. 開幕,,,yuhui,0,1597457957
+318,,kaedah,n. 方法,,,yuhui,0,1597458004
+319,,tarikh tutup,n. 截止日期,,,yuhui,0,1597458029
+320,,peraduan,n. 比賽,,,yuhui,0,1597458041
+321,,tindakan,n. 行動,,,yuhui,0,1597458053
+322,,abai,v. 忽略,,,yuhui,0,1597458550
+323,,abstrak,adj. 抽象,,,yuhui,0,1597458736
+324,,adat resam,n. 風俗習慣,,,yuhui,0,1597458762
+325,,aktif,adj. 積極,,,yuhui,0,1597458797
+326,,alasan,n. 借口,,,yuhui,0,1597458826
+327,,alir ,v. 流動,,,yuhui,0,1597458839
+328,,alkohol,n. 酒精,,,yuhui,0,1597458875
+329,,amal,n. 善行,,,yuhui,0,1597458887
+330,,amanah,n. 誠信,,,yuhui,0,1597458905
+331,,amaran,n. 警告,,,yuhui,0,1597458917
+332,,ampai,v. 搖擺,,,yuhui,0,1597458937
+333,,ancam,v. 威䝱,,,yuhui,0,1597458975
+334,,berkisar,v. 圍繞,,,yuhui,0,1597459109
+335,,watak,n. 角色,,,yuhui,0,1597459121
+336,,teman,n. 朋友,,,yuhui,0,1597459135
+337,,tekan,v. 按,,,yuhui,0,1597459145
+338,,menyangkai,v. 懷疑,,,yuhui,0,1597459165
+339,,panggil,v. 呼喚,,,yuhui,0,1597459186
+340,,bekalan,n. 供應,,,yuhui,0,1597459196
+341,,banjir,n. 水災,,,yuhui,0,1597459208
+342,,paras,n. 位置,,,yuhui,0,1597459218
+343,,dada,n. 胸,,,yuhui,0,1597459246
+344,,menjenguk,v. 探望,,,yuhui,0,1597459262
+345,,langsung,立刻,,,yuhui,0,1597459278
+346,,patah,斷掉,,,yuhui,0,1597459292
+347,,cuba,v. 嘗試,,,yuhui,0,1597459311
+348,,pusat,n. 中心,,,yuhui,0,1597459317
+349,,sebab,n. 原因,,,yuhui,0,1597459328
+350,,cemas,n. 緊張,,,yuhui,0,1597459339
+351,,memikirkan,v. 想到,,,yuhui,0,1597459352
+352,,mungkin,可能,,,yuhui,0,1597459363
+353,,suami,n. 丈夫,,,yuhui,0,1597459371
+354,,rindu,v. 想念,,,yuhui,0,1597459380
+355,,anggap,v. 認為,,,yuhui,0,1597459428
+356,,kerap,n. 常常,,,yuhui,0,1597459449
+357,,membuang kecil,v. 尿尿,,,yuhui,0,1597459465
+358,,kadang-kadang,偶爾,,,yuhui,0,1597459482
+359,,bilik air,沖涼房,,,yuhui,0,1597459497
+360,,surut,水退,,,yuhui,0,1597459508
+361,,memeluk,v. 擁抱,,,yuhui,0,1597459518
+362,,mengangguk,v. 點頭,,,yuhui,0,1597459626
+363,,berbohong,v. 欺騙,,,yuhui,0,1597459652
+364,,menanggung dosa,v. 承擔罪過,,,yuhui,0,1597459692
+365,,peti sejuk,n. 電冰箱,,,yuhui,0,1597459703
+366,,salam,v. 問候,,,yuhui,0,1597459719
+367,,serang,v. 襲擊,"
+",,yuhui,0,1597459743
+368,,meninggal dunia,v. 去世,,,yuhui,0,1597459766
+369,,kesal,v. 後悔,,,yuhui,0,1597459777
+370,,mengirimkan (kirim),v. 寄送,,,yuhui,0,1597459796
+371,,maruah,n. 尊嚴,,,yuhui,0,1597459810
+372,,mulia,adj. 崇高,,,yuhui,0,1597459821
+373,,mengakui,v. 承認,,,yuhui,0,1597459833
+374,,sensitif,adj. 敏感,,,yuhui,0,1597459844
+375,,bersimpati,有同情心,,,yuhui,0,1597459868
+376,,mengambil berat,v. 看重,,,yuhui,0,1597459880
+377,,usang,adj. 陳舊,"
+",,yuhui,0,1597459894
+599,,taat,v.效忠,,,yuhui,0,1598965249
+600,,tanggungjawab,n.責任,,,yuhui,0,1598965249
+601,,jarang-jarang,很少,,,yuhui,0,1598965700
+602,,melaporkan,v.報告,,,yuhui,0,1598965700
+603,,tali pinggang berselamatan,n.安全帶,,,yuhui,0,1598965701
+604,,peramah,親切,,,yuhui,0,1598965701
+605,,jelas,adj.清楚,,,yuhui,0,1598965701
+606,,cerah,adj.晴朗,,,yuhui,0,1598965701
+607,,berita,n.消息/新聞,,,yuhui,0,1598965701
+608,,lambat,adj.慢、遲,,,yuhui,0,1598965701
+609,,dibaham,v.吞,,,yuhui,0,1598965701
+610,,ganas,adj.凶,,,yuhui,0,1598965701
+611,,hangat,adj.熱烈,,,yuhui,0,1598965701
+612,,renyuk,adj. 皺,,,yuhui,0,1598965701
+613,,remuk,adj.破碎的,,,yuhui,0,1598965701
+614,,pedas,adj.辣,,,yuhui,0,1598965701
+615,,ulang,v.重復,,,yuhui,0,1598965701
+616,,tayang,v.放映,,,yuhui,0,1598965701
+617,,belaka,完全的,,,yuhui,0,1598965701
+618,,diseterika,v. 燙(衣服),,,yuhui,0,1598965701
+619,,komunis,n. 共產党,,,yuhui,0,1598965702
+620,,cergas,adj.活潑的,,,yuhui,0,1598965702
+621,,perang,adj.赤褐色,,,yuhui,0,1598966923
+622,,jarak,n.距離,,,yuhui,0,1598966923
+623,,cemburu,妒忌,,,yuhui,0,1598966923
+624,,ukur,v.測量,,,yuhui,0,1598966923
+625,,pancaindera,n.五官,,,yuhui,0,1598966923
+626,,pahit,adj.苦,,,yuhui,0,1598966923
+627,,hapak,adj. 發霉,,,yuhui,0,1598966923
+628,,lawa,adj.漂亮,,,yuhui,0,1598966924
+629,,beranda,n.走廊,,,yuhui,0,1598966924
+630,,berjenama,adj.有品牌,,,yuhui,0,1598966924
+631,,belok,v.轉彎,,,yuhui,0,1598966924
+632,,gerai,n.攤位,,,yuhui,0,1598966924
+633,,dahan,n.樹枝,,,yuhui,0,1598966924
+634,,cantas,v.修剪,,,yuhui,0,1598966924
+635,,jerit,v. 喊叫,,,yuhui,0,1598966924
+636,,kirim,v.寄,,,yuhui,0,1598966924
+637,,berbantalkan,以… 為枕頭,,,yuhui,0,1598966924
+638,,lengan,手臂,,,yuhui,0,1598966924
+639,,majalah,n.雜誌,,,yuhui,0,1598966924
+640,,syarikat,n.公司,,,yuhui,0,1598966924
+641,,kena,被,,,yuhui,0,1598966924
+642,,mengalir,v.流動,,,yuhui,0,1598966924
+643,,kisah,n.故事,,,yuhui,0,1598966925
+644,,mengerang,v. 呻吟,,,yuhui,0,1598966925
+645,,atasi,v.解決,,,yuhui,0,1598966925
+646,,anak tunggal,n. 獨生子,,,yuhui,0,1598966925
+647,,lintang-pukang,狼狽奔逃,,,yuhui,0,1598966925
+648,,pijak,v.踩,,,yuhui,0,1598966925
+649,,paku,n.鐵釘,,,yuhui,0,1598966925
+650,,arah,n.方向,,,yuhui,0,1598966925
+651,,masalah,n.問題,,,yuhui,0,1598966925
+652,,rumi,adj.復雜的,,,yuhui,1,1598966925
+653,,jalan pintas,n.捷徑,,,yuhui,0,1598966925
+654,,saku,n.手袋、口袋,,,yuhui,1,1598966925
+655,,serah,v.呈交,,,yuhui,0,1598966925
+656,,borang,n.表格,,,yuhui,0,1598966925
+657,,meningkat,v.上升,,,yuhui,0,1598966925
+658,,sugul,adj. 悲傷,,,yuhui,1,1598966925
+659,,gigi palsu,n.假牙,,,yuhui,0,1598966926
+660,,ketua,n.首領,,,yuhui,0,1598966926
+661,,pengajian,n.研究,,,yuhui,1,1598966926
+662,,adil,adj.公正,,,yuhui,0,1598966926
+663,,zaman dahulu,n.古代,,,yuhui,0,1598966926
+664,,tiba,扺達,,,yuhui,0,1598966926
+665,,mengambil tindakan,採取行動,,,yuhui,0,1598966926
+666,,moyang,n.祖宗,,,yuhui,0,1598966926
+667,,panggilan,n.電話,,,yuhui,0,1598966926
+668,,bahagi,v.分配,,,yuhui,0,1598966926
+669,,bahagian,n.部份,,,yuhui,0,1598966926
+670,,regangan badan,n.拉筋,,,yuhui,0,1598966926
+671,,melonggarkan,v.放松,,,yuhui,0,1598966926
+672,,otot,n.肌肉,,,yuhui,0,1598966926
+673,,menuju,v.朝向,,,yuhui,0,1598966926
+674,,tempat balapan,n.競賽場地,,,yuhui,0,1598966926
+675,,mengambil bahagian,v.參加,,,yuhui,0,1598966927
+676,,terdiri daripada,v.被組成,,,yuhui,0,1598966927
+677,,lontar,v.拋,,,yuhui,0,1598966927
+678,,peluru,n.子彈/標槍,,,yuhui,0,1598966927
+679,,lembing,n.長矛,,,yuhui,0,1598966927
+680,,berlangsung,v.進行,,,yuhui,0,1598966927
+681,,kerjasama,合作,,,yuhui,0,1598966927
+682,,mengambil berat,v. 看重,,,yuhui,0,1598966927
+683,,dihadapi,v.被面對,,,yuhui,0,1598966927
+684,,menunggu,v.等待,,,yuhui,0,1598966927
+685,,bertenggek,v.栖息,,,yuhui,0,1598966927
+686,,oleh-oleh,n.禮物,,,yuhui,1,1598966927
+687,,menipu,v. 欺騙,,,yuhui,0,1598966927
+688,,lengang,冷清,,,yuhui,0,1598966927
+689,,kacak,adj.英俊,,,yuhui,0,1598966927
+690,,kedekut,adj.吝嗇的,,,yuhui,0,1598966927
+691,,selendang,n.頭巾,,,yuhui,0,1598966928
+692,,sedar,知曉,,,yuhui,0,1598966928
+693,,pelakon,n.演員,,,yuhui,0,1598966928
+694,,menebang,v.砍,,,yuhui,0,1598966928
+695,,kapak,n.斧頭,,,yuhui,0,1598966928
+696,,olahraga,運動,,,yuhui,0,1598966928
+697,,perangai,n.行為、舉止,,,yuhui,0,1598966928
+698,,bengis,adj.殘暴,,,yuhui,0,1598966928
+699,,wajah,n.長相,,,yuhui,0,1598966928
+700,,remaja,n.青年,,,yuhui,0,1598966928
+701,,tahan,v.拘留,,,yuhui,0,1598966928
+702,,terbabit,v.涉及,,,yuhui,0,1598966928
+703,,samun,v.搶奪,,,yuhui,0,1598966928
+704,,menyertai,v.參加,,,yuhui,0,1598966928
+705,,sedar,v. 覺察,,,yuhui,0,1598966928
+706,,tatkala,當,,,yuhui,0,1598966928
+707,,usia,n.年齡,,,yuhui,0,1598966929
+708,,terkilan,遺憾,,,yuhui,0,1598966929
+709,,semoga,但愿,,,yuhui,0,1599042692
+710,,pulih,v.恢復,,,yuhui,0,1599042692
+711,,biadab,adj.無禮,,,yuhui,0,1599042692
+712,,filem seram,n.恐怖片,,,yuhui,0,1599042692
+713,,bersilat,v.打拳,,,yuhui,0,1599042692
+714,,kelak,未來,,,yuhui,0,1599042692
+715,,terserempak,v.突然相遇,,,yuhui,0,1599042692
+716,,membasuh,v.洗,,,yuhui,0,1599042693
+717,,beras,n.米,,,yuhui,0,1599042693
+718,,lalu,然後,,,yuhui,0,1599042693
+719,,kusut,adj.亂(rambut),,,yuhui,0,1599042693
+720,,masam,adj.愁眉不展,,,yuhui,0,1599042693
+721,,namum,但是,,,yuhui,0,1599042693
+722,,sewa,v.租,,,yuhui,0,1599042693
+723,,berhantu,adj.有鬼,,,yuhui,0,1599042693
+724,,merungut,v.發牢騷,,,yuhui,0,1599042693
+725,,kerajaan,n.政府,,,yuhui,0,1599042693
+726,,catur,n.棋,,,yuhui,0,1599042693
+727,,moga-moga,但愿,,,yuhui,0,1599042693
+728,,berpendapat, 有意見,,,yuhui,0,1599042693
+729,,mutu,n.品質,,,yuhui,0,1599042693
+730,,pesan,v.吩咐,,,yuhui,0,1599042693
+863,,kepenatan,n.疲倦,,,yuhui,0,1599387108
+864,,bendang,n.稻田,,,yuhui,0,1599387109
+865,,mengemis,v.行乞,,,yuhui,0,1599387109
+866,,kenamaan,n.出名,,,yuhui,0,1599387109
+867,,layak,adj.有資格,,,yuhui,0,1599387109
+868,,menyebarkan,v.宣傳,,,yuhui,0,1599387109
+869,,tikam,v.剌,,,yuhui,0,1599387109
+870,,khabar angin,n.新聞,,,yuhui,0,1599387109
+871,,kembali,v. 返回,,,yuhui,0,1599387109
+872,,pangkal,n.起點,,,yuhui,0,1599387109
+873,,bergaya,v. 有型,,,yuhui,0,1599387109
+874,,bukti,n. 證據,,,yuhui,0,1599387109
+875,,cacat,殘缺,,,yuhui,0,1599387109
+876,,tampar,摑打,,,yuhui,0,1599387109
+877,,pedih,痛,,,yuhui,0,1599387109
+878,,mengulang kaji,復習,,,yuhui,0,1599387110
+879,,bersolek,化妝、打扮,,,yuhui,0,1599387110
+880,,gurun,沙漠,,,yuhui,0,1599387110
+881,,liar,野,,,yuhui,0,1599387110
+882,,gajah liar,野象,,,yuhui,0,1599387110
+883,,gigih,堅強,,,yuhui,0,1599387110
+884,,akhirnya,最後,,,yuhui,0,1599387110
+1281,,hasil,n.收獲,,,yuhui,0,1600914353
+1282,,mengukir,v.雕刻,,,yuhui,0,1600914353
+1283,,tewas,n.失敗,,,yuhui,0,1600914353
+1284,,menyeberangi,v.橫越,,,yuhui,0,1600914353
+1285,,kali terakhir,n.最後一次,,,yuhui,0,1600914353
+1286,,bertemu,v.遇見,,,yuhui,0,1600914353
+1287,,sidai,v.晾干,,,yuhui,0,1600914353
+1288,,gemuruh,v.雷鳴,,,yuhui,0,1600914353
+1289,,sebentar,n.一會兒,,,yuhui,0,1600914353
+1290,,sirap,n.糖水,,,yuhui,0,1600914354
+1291,,tak usah,不要,,,yuhui,0,1600914354
+1292,,kenang,v.回憶,,,yuhui,0,1600914354
+1293,,peristiwa,n.事件,,,yuhui,0,1600914354
+1294,,mengalahkan,v.打敗,,,yuhui,0,1600914354
+1295,,berludah,v.吐痰,,,yuhui,0,1600914354
+1296,,jururawat,n.護士,,,yuhui,0,1600914354
+1297,,merokok,v.抽煙,,,yuhui,0,1600914354
+1298,,komen,v.評論,,,yuhui,0,1600914354
+1299,,pantun,n.詩,,,yuhui,0,1600914354
+1300,,reka,v.創作,,,yuhui,0,1600914354
+1301,,riba,n. 膝蓋,,,yuhui,0,1600914354
+1302,,generasi muda,n.年輕一代,,,yuhui,0,1600914354
+1303,,mensyukuri,v.感謝,,,yuhui,0,1600914354
+1304,,anak dara,n.處女,,,yuhui,0,1600914354
+1305,,berumah tangga,v. 已成婚,,,yuhui,0,1600914354
+1306,,mengemaskan,v. 收拾,,,yuhui,0,1600914355
+1307,,yakin,v.相信,,,yuhui,0,1600914355
+1308,,berbulan madu,v.度蜜月,,,yuhui,0,1600914355
+1309,,bersarapan,v.吃早餐,,,yuhui,0,1600914355
+1310,,tercicir,v.掉落(不小心),,,yuhui,0,1600914355
+1311,,kebenaran,n.允許,,,yuhui,0,1600914355
+1312,,buruk,adj. 難看/壞的,,,yuhui,0,1600914355
+1313,,seluar,n. 褲子,,,yuhui,0,1600914355
+1314,,keluarga angkat,收養,,,yuhui,0,1600914355
+1315,,asyik,v.沉迷,,,yuhui,0,1600914355
+1316,,juara,n.冠軍,,,yuhui,0,1600914355
+1317,,tanpa,沒有,,,yuhui,0,1600914355
+1318,,menyaksikan,v.觀看,,,yuhui,0,1600914355
+1319,,tadika,n.幼稚園,,,yuhui,0,1600914355
+1320,,diluluskan,v.被批準,,,yuhui,0,1600914355
+1321,,majikan,n.老板,,,yuhui,0,1600914355
+1322,,menurut,v.跟隨,,,yuhui,0,1600914356
+1323,,pengiring,n. 跟隨者,,,yuhui,0,1600914356
+1324,,zaman feudal,n.封建社會,,,yuhui,0,1600914356
+1325,,sejarah,n. 歷史,,,yuhui,0,1600915966
+1326,,kajian,n. 研究,,,yuhui,0,1600915966
+1327,,komprehensif,adj.全面,,,yuhui,0,1600915966
+1328,,kurun,n.世紀,,,yuhui,0,1600915966
+1329,,sifat,n.特點、個性、氣質,,,yuhui,0,1600915966
+1330,,bertani,v.務農,,,yuhui,0,1600915966
+1331,,meneroka,v.開拓,,,yuhui,0,1600915967
+1332,,getah,n. 塑膠,,,yuhui,0,1600915967
+1333,,budaya,n.文化,,,yuhui,0,1600915967
+1334,,tarian,n.舞蹈,,,yuhui,0,1600915967
+1335,,seni,n.藝術,,,yuhui,0,1600915967
+1336,,identiti,n.特徵,,,yuhui,0,1600915967
+1337,,membongkok,v.彎腰,,,yuhui,0,1600915967
+1338,,gaya,n.姿態,,,yuhui,0,1600915967
+1339,,hibur,n.娛樂,,,yuhui,0,1600915967
+1340,,memiliki,v.擁有,,,yuhui,0,1600915967
+1341,,berkahwin,v.結婚,,,yuhui,0,1600915967
+1342,,persandingan,n.并坐,,,yuhui,0,1600915967
+1343,,lawan arah jam,n.逆時針,,,yuhui,0,1600915967
+1344,,gagal,v.失敗,,,yuhui,0,1600915967
+1345,,adat,n.禮俗,,,yuhui,0,1600915967
+1346,,bakal,adj.未來的,,,yuhui,0,1600915968
+1765,,bakal isteri,未婚妻,,,yuhui,0,1607145276
+1766,,perubatan,醫藥,,,yuhui,0,1607145277
+1767,,moyang,祖先,,,yuhui,0,1607145277
+1768,,herba,草藥,,,yuhui,0,1607145277
+1769,,bahan asas,原料,,,yuhui,0,1607145277
+1770,,diperoleh,取得,,,yuhui,0,1607145277
+1771,,mengurangkan,減少,,,yuhui,0,1607145277
+1772,,paku,羊齒植物,,,yuhui,0,1607145277
+1773,,diserang,侵略,,,yuhui,0,1607145277
+1774,,barat,西方,,,yuhui,0,1607145277
+1775,,peranan,角色,,,yuhui,0,1607145277
+1776,,generasi muda,年輕一代,,,yuhui,0,1607145277
+1777,,racun,毒藥,,,yuhui,0,1607145278
+1778,,serangga,昆虫,,,yuhui,0,1607145278
+1779,,sembur,噴洒,,,yuhui,0,1607145278
+1780,,lengan panjang,長袖,,,yuhui,0,1607145278
+1781,,sapu,搽,,,yuhui,0,1607145278
+1782,,penghalau,驅逐物,,,yuhui,0,1607145278
+1783,,halau,驅逐,,,yuhui,0,1607145278
+1784,,musnah,毀滅,,,yuhui,0,1607145278
+1785,,pembiakan,繁殖,,,yuhui,0,1607145278
+1786,,lupus,消除,,,yuhui,0,1607145278
+1787,,pasu bunga,花盆,,,yuhui,0,1607145278
+1788,,alas,墊,,,yuhui,0,1607145278
+1789,,berus,刷子,,,yuhui,0,1607145278
+1790,,rapat,密切,,,yuhui,0,1607145278
+1791,,menakung,積水,,,yuhui,0,1607145278
+1792,,takung,水槽,,,yuhui,0,1607145278
+1793,,botol,瓶子,,,yuhui,0,1607145279
+1794,,lindung,遮躲的,,,yuhui,0,1607145279
+1795,,tayar terpakai,用過的輪胎,,,yuhui,0,1607145279
+1796,,lubangkan,挖洞,,,yuhui,0,1607145279
+1797,,berkelopok,花瓣,,,yuhui,0,1607145279
+1798,,rata,平坦,,,yuhui,0,1607145279
+1799,,telangkup,翻覆,,,yuhui,0,1607145279
+1800,,kutip,拾取,,,yuhui,0,1607145279
+1801,,milik,擁有,,,yuhui,0,1607145279
+1802,,bilik tidur,睡房,,,yuhui,0,1607145279
+1803,,ruang tamu,客廳,,,yuhui,0,1607145279
+1804,,serbaguna,多用途,,,yuhui,0,1607145279
+1805,,rebat,回扣,,,yuhui,0,1607145279
+1806,,wang pendahuluan,首期錢,,,yuhui,0,1607145279
+1807,,ulasan,評論,,,yuhui,0,1607145279
+1808,,piramid,金字塔,,,yuhui,0,1607145279
+1809,,lemak,脂肪,,,yuhui,0,1607145280
+1810,,minyak,油,,,yuhui,0,1607145280
+1811,,gula,糖,,,yuhui,0,1607145280
+1812,,garam,鹽,,,yuhui,0,1607145280
+1813,,sederhana,中等,,,yuhui,0,1607145280
+1814,,daging,肉,,,yuhui,0,1607145280
+1815,,kekacang,豆類,,,yuhui,0,1607145280
+1816,,tenusu,乳酪,,,yuhui,0,1607145280
+1817,,paling,最,,,yuhui,0,1607145280
+1818,,menunjukkan,顯示,,,yuhui,0,1607145280
+1819,,membekalkan,提供,,,yuhui,0,1607145280
+1820,,tenaga,能量,,,yuhui,0,1607145280
+1821,,manusia,人類,,,yuhui,0,1607145280
+1822,,digalakkan,被鼓勵,,,yuhui,0,1607145280
+1823,,sistem penghadaman,消化系統,,,yuhui,0,1607145280
+1824,,di samping itu,同時,,,yuhui,0,1607145280
+1825,,disyorkan,被勸告,,,yuhui,0,1607145281
+1826,,protein,蛋白質,,,yuhui,0,1607145281
+1827,,seterusnya,接著,,,yuhui,0,1607145281
+1828,,mengelakkan,避免,,,yuhui,0,1607145281
+1829,,obesiti,肥胖,,,yuhui,0,1607145281
+1830,,mematuhi,遵守,,,yuhui,0,1607145281
+1831,,terjamin,保證,,,yuhui,0,1607145281
+1832,,teliti,仔細,,,yuhui,0,1607145281
+1833,,maklumat,資料,,,yuhui,0,1607145281
+1834,,berdasarkan,依照,,,yuhui,0,1607145281
+1835,,ragut,搶奪,,,yuhui,0,1607145281
+1836,,mangsa,受害者,,,yuhui,0,1607145281
+1837,,harta,財產,,,yuhui,0,1607145281
+1838,,cedera,受傷,,,yuhui,0,1607145281
+1839,,nyawa,生命,,,yuhui,0,1607145281
+1840,,langkah,方法/步驟,,,yuhui,0,1607145281
+1841,,menguasai,加強,,,yuhui,0,1607145282
+1842,,mempertahan diri,自衛,,,yuhui,0,1607145282
+1843,,prihatin,關心,,,yuhui,0,1607145282
+1844,,semakin serius,越來越嚴重,,,yuhui,0,1607145282
+1845,,kaum wanita,女性,,,yuhui,0,1607145282
+1846,,mengakibatkan,造成,,,yuhui,0,1607145282
+1847,,trauma,創傷,,,yuhui,0,1607145282
+1848,,melengkapkan diri,充實,,,yuhui,0,1607145282
+1849,,karate,空手道,,,yuhui,0,1607145282
+1850,,bersilat,武術,,,yuhui,0,1607145282
+1851,,masyarakat,社會,,,yuhui,0,1607145282
+1852,,masyarakat,社會,,,yuhui,0,1607145282
+1853,,memasang telinga,洗耳恭聽,,,yuhui,0,1607145675
+1854,,berganding bahu,齊心合力,,,yuhui,0,1607145675
+1855,,membanteras,消除,,,yuhui,0,1607145675
+1856,,esok,明天,,,yuhui,0,1607145675
+1857,,saling,互相,,,yuhui,0,1607145675
+1858,,demikian,如此,,,yuhui,0,1607145675
+1859,,segera,立即,,,yuhui,0,1607145675
+1860,,agaknya,大概,,,yuhui,0,1607145675
+1861,,tersipu-sipu,羞答答的,,,yuhui,0,1607145675
+1862,,siang-siang,早點,,,yuhui,0,1607145675
+1863,,suami,丈夫,,,yuhui,0,1607145676
+1864,,diperli,被取笑,,,yuhui,0,1607145676
+1865,,besar-besaran,盛大的,,,yuhui,0,1607145676
+1866,,berniaga,做生意,,,yuhui,0,1607145676
+1867,,lintang-pukang,四處亂串的,,,yuhui,0,1607145676
+1868,,gegara,震動,,,yuhui,0,1607145676
+1869,,berjalan mengiring,陪伴的走,,,yuhui,0,1607145676
+1870,,tersungkak,被絆倒,,,yuhui,0,1607145676
+1871,,akar kayu,樹根,,,yuhui,0,1607145676
+1872,,acapkali,常常,,,yuhui,0,1607145676
+1873,,buah pinggang,腎臟,,,yuhui,0,1607145676
+1874,,menyiang ikan,除掉魚的內臟,,,yuhui,0,1607145676
+2051,,jaring-jaring,不常的,,,yuhui,0,1608630477
+2052,,melintas jalan,過馬路,,,yuhui,0,1608630477
+2053,,bertemu,見面,,,yuhui,0,1608630477
+2054,,ditegur,打招呼,,,yuhui,0,1608630477
+2055,,mengenali,認得,,,yuhui,0,1608630477
+2056,,nyaris,幾乎/差點,,,yuhui,0,1608630478
+2057,,sakit tenat,重病,,,yuhui,0,1608630478
+2058,,kenderaan,交通工具,,,yuhui,0,1608630478
+2059,,jabatan pengangkutan,交通局,,,yuhui,0,1608630478
+2060,,sumber,來源,,,yuhui,0,1608630478
+2061,,peningkatan,提高,,,yuhui,0,1608630478
+2062,,bilangan,數量,,,yuhui,0,1608630478
+2063,,sekata,一致,,,yuhui,0,1608630478
+2064,,sekitar,周圍/大約,,,yuhui,0,1608630478
+2065,,setengah,一半,,,yuhui,0,1608630478
+2066,,diramalkan,預測,,,yuhui,0,1608630478
+2067,,menangani,處理,,,yuhui,0,1608630478
+2068,,iklan,廣告,,,yuhui,0,1608630478
+2069,,sijil penyertaan,證書,,,yuhui,0,1608630478
+2070,,tarikh tutup,截止日期,,,yuhui,0,1608630478
+2071,,mengadakan,舉行,,,yuhui,0,1608630478
+2072,,tema,主題,,,yuhui,0,1608630479
+2073,,bersempena,趁著,,,yuhui,0,1608630479
+2074,,kempen,活動,,,yuhui,0,1608630479
+2075,,tujuan,目的,,,yuhui,0,1608630479
+2076,,mencungkil,挖掘,,,yuhui,0,1608630479
+2077,,bakat,天份,,,yuhui,0,1608630479
+2078,,kreativiti,創造力,,,yuhui,0,1608630479
+2079,,insan,人,,,yuhui,0,1608630479
+2080,,berkaliber,有才能,,,yuhui,0,1608630479
+2081,,brosur,傳單,,,yuhui,0,1608630479
+2082,,berkembar,成雙成對,,,yuhui,0,1608630479
+2083,,ruang tamu,客廳,,,yuhui,0,1608630479
+2084,,halaman,院子,,,yuhui,0,1608630479
+2085,,lebuh raya,高速公路,,,yuhui,0,1608630479
+2086,,miliki,擁有,,,yuhui,0,1608630479
+2087,,keselesaan,舒適,,,yuhui,0,1608630480
+2088,,garaj,車房,,,yuhui,0,1608630480
+2089,,memuatkan,容納,,,yuhui,0,1608630480
+2090,,kemudahan,方便,,,yuhui,0,1608630480
+2091,,destinasi,終點,,,yuhui,0,1608630480
+2092,,mengeliling pulau,環島,,,yuhui,0,1608630480
+2093,,bersejarah,有歷史的,,,yuhui,0,1608630480
+2094,,bersejarah,有歷史的,,,yuhui,0,1608630480
+2095,,membeli-belah,購物,,,yuhui,0,1608630480
+2096,,bebas,免稅,,,yuhui,0,1608630480
+2097,,penginapan,住宿,,,yuhui,0,1608630480
+2098,,chalet,度假屋,,,yuhui,0,1608630480
+2099,,namun,但是,,,yuhui,0,1608630480
+2100,,sekaligus,一起,,,yuhui,0,1608630480
+2101,,minda,思想,,,yuhui,0,1608630480
+2102,,wajar,自然的,,,yuhui,0,1608630480
+2103,,medium,媒介,,,yuhui,0,1608630481
+2104,,era,時代,,,yuhui,0,1608630481
+2105,,abad,世紀,,,yuhui,0,1608630481
+2106,,mudah,容易,,,yuhui,0,1608630481
+2107,,tanpa,沒有/不需要,,,yuhui,0,1608630481
+2108,,telefon pintar,行動電話,,,yuhui,0,1608630481
+2109,,kesan,教材,,,yuhui,0,1608630481
+2110,,menarik minat,吸引,,,yuhui,0,1608630481
+2111,,perkembangan,發展,,,yuhui,0,1608630481
+2112,,akhlak,品格、有禮貌的,,,yuhui,0,1608630481
+2113,,rancangan,電視節目,,,yuhui,0,1608630481
+2114,,pihak penyiaran,廣播局,,,yuhui,0,1608630481
+2115,,mengkaji,研究,,,yuhui,0,1608630481
+2116,,terpengaruh,被影響,,,yuhui,0,1608630481
+2117,,sifat,樣子,,,yuhui,0,1608631312
+2118,,sikap,態度,,,yuhui,0,1608631312
+2119,,idola,偶像,,,yuhui,0,1608631312
+2120,,berunsurkan,有…的元素,,,yuhui,0,1608631313
+2121,,pendidikan,教育,,,yuhui,0,1608631313
+2122,,pengetahuan am,常識,,,yuhui,0,1608631313
+2123,,mencadangkan,建議,,,yuhui,0,1608631313
+2124,,langkah-langkah,步驟,,,yuhui,0,1608631313
+2125,,menapis,過濾,,,yuhui,0,1608631313
+2126,,keterlaluan,過份,,,yuhui,0,1608631313
+2127,,tidak langsung,間接的,,,yuhui,0,1608631313
+2128,,pendedahan,暴露,,,yuhui,0,1608631313
+2129,,mempertimbangkan,考慮,,,yuhui,0,1608631313
+2130,,kemas kini,更新,,,yuhui,0,1608631313
+2131,,sembuh,康復,,,yuhui,0,1608631313
+2132,,baharu,新的,,,yuhui,0,1608631313
+2133,,aktif,活躍,,,yuhui,0,1608631313
+2134,,situasi,情況,,,yuhui,0,1608631314
+2135,,dilaporkan,報告,,,yuhui,0,1608631314
+2136,,jangkitan,傳染,,,yuhui,0,1608631314
+2137,,catat,記錄,,,yuhui,0,1608631314
+2138,,catat,記錄,,,yuhui,0,1608631314
+2139,,kekal,永久,,,yuhui,0,1608631314
+2140,,menemui,遇見,,,yuhui,0,1608631314
+2141,,semoga,但愿,,,yuhui,0,1608631314
+2142,,kesejahteraan,安寧,,,yuhui,0,1608631314
+2143,,dilindungi,被保護,,,yuhui,0,1608631314
+2144,,tugas,責任、任務,,,yuhui,0,1608631314
+2145,,mungkin,也許、可能,,,yuhui,0,1608631314
+2146,,terkejut,嚇一跳,,,yuhui,0,1608631315
+2147,,menghubungi,聯繫,,,yuhui,0,1608631315
+2148,,bermakna,意味,,,yuhui,0,1608631315
+2149,,dorongan,鼓勵,,,yuhui,0,1608631315
+2150,,sokongan,支持,,,yuhui,0,1608631315
+2151,,memperoleh,獲得,,,yuhui,0,1608631315
+2152,,percubaan,嘗試,,,yuhui,0,1608631315
+2153,,selesai,完畢,,,yuhui,0,1608631315
+2154,,impian,夢想,,,yuhui,0,1608631315
+2155,,asrama,宿舍,,,yuhui,0,1608631315
+2156,,mesyuarat,會議,,,yuhui,0,1608631316
+2157,,dipilih,被選為,,,yuhui,0,1608631316
+2158,,kokurikulum,聯課,,,yuhui,0,1608631316
+2159,,pidato,演講,,,yuhui,0,1608631316
+2160,,pidato,演講,,,yuhui,0,1608631316
+2161,,mewakili,代表,,,yuhui,0,1608631316
+2162,,bakal,將要,,,yuhui,0,1608631316
+2163,,sia-sia,沒用,,,yuhui,0,1608631316
+2164,,tempoh hari,當時,,,yuhui,0,1608631316
+2165,,kenangan,回憶,,,yuhui,0,1608631316
+2166,,malu,羞羞,,,yuhui,0,1608631316
+2167,,tegur,批評,,,yuhui,0,1608631316
+2168,,tidak layak,沒資格,,,yuhui,0,1608631316
+2169,,putus asa,灰心,,,yuhui,0,1608631316
+2170,,tunjuk ajar,指導,,,yuhui,0,1608631316
+2171,,membalas,報答,,,yuhui,0,1608631317
+2172,,jasa,功勞,,,yuhui,0,1608631317
+2173,,laporan,報告,,,yuhui,0,1608631317
+2174,,kebakaran,火災,,,yuhui,0,1608631317
+2175,,peristiwa,事件,,,yuhui,0,1608631317
+2176,,kira-kira,大約,,,yuhui,0,1608631317
+2177,,ulang tahun,周年,,,yuhui,0,1608631317
+2178,,kejadian,事件,,,yuhui,0,1608631317
+2179,,kaki tangan,工作人員,,,yuhui,0,1608631317
+2180,,berkenaan,有關,,,yuhui,0,1608631317
+2181,,cedera parah,重傷,,,yuhui,0,1608631317
+2182,,orang awan,公眾人士,,,yuhui,0,1608631317
+2183,,sempat,有機會,,,yuhui,0,1608632038
+2184,,berhampiran,靠近,,,yuhui,0,1608632038
+2185,,tangga,樓梯,,,yuhui,0,1608632038
+2186,,eskalator,扶梯,,,yuhui,0,1608632038
+2187,,berpunca,起因,,,yuhui,0,1608632038
+2188,,tekanan,壓力,,,yuhui,0,1608632038
+2189,,memadamkan,滅火,,,yuhui,0,1608632038
+2190,,marak,燒起來,,,yuhui,0,1608632038
+2191,,merebak,蔓延,,,yuhui,0,1608632038
+2192,,terpaksa,被迫,,,yuhui,0,1608632038
+2193,,perkhidmatan,服務,,,yuhui,0,1608632038
+2194,,letupan,爆炸,,,yuhui,0,1608632038
+2195,,jeritan,喊叫聲,,,yuhui,0,1608632038
+2196,,menyusun,排列,,,yuhui,0,1608632038
+2197,,runtuh,倒塌,,,yuhui,0,1608632038
+2198,,mengawal,控制,,,yuhui,0,1608632039
+2199,,lemah,弱,,,yuhui,0,1608632039
+2200,,kerugian,損失,,,yuhui,0,1608632039
+2201,,dianggarkan,估計,,,yuhui,0,1608632039
+2202,,musnah,毀壞,,,yuhui,0,1608632039
+2203,,menasihati,勸告,,,yuhui,0,1608632039
+2204,,memastikan,確保,,,yuhui,0,1608632039
+2205,,iklan,廣告,,,yuhui,0,1608632039
+2206,,kaca,玻璃,,,yuhui,0,1608632039
+2207,,sebenarnya,事實上,,,yuhui,0,1608632039
+2208,,peranan,角色,,,yuhui,0,1608632039
+2209,,wartawan,記者,,,yuhui,0,1608632039
+2210,,mewanwancara,訪問,,,yuhui,0,1608632039
+2211,,syarikat,公司,,,yuhui,0,1608632039
+2212,,swasta,私人的,,,yuhui,0,1608632039
+2213,,lanjut,詳細的,,,yuhui,0,1608632040
+2214,,maksud,意思,,,yuhui,0,1608632040
+2215,,mempengaruhi,引導,,,yuhui,0,1608632040
+2216,,memperkenalkan,介紹,,,yuhui,0,1608632040
+2217,,memujuk,勸說,,,yuhui,0,1608632040
+2218,,kebaikan,好處,,,yuhui,0,1608632040
+2219,,menyatakan,說明,,,yuhui,0,1608632040
+2220,,melalui,通過,,,yuhui,0,1608632040
+2221,,jenama baru,新的品牌,,,yuhui,0,1608632040
+2222,,wujud,存在,,,yuhui,0,1608632040
+2223,,kembali,回來,,,yuhui,0,1608632040
+2224,,keuntungan,利潤,,,yuhui,0,1608632040
+2225,,dibayar,支付,,,yuhui,0,1608632040
+2226,,dibayar,支付,,,yuhui,0,1608632040
+2227,,reputasi,名聲,,,yuhui,0,1608632040
+2228,,maafkan,原諒,,,yuhui,0,1608632040
+2229,,tumpang tanya,詢問,,,yuhui,0,1608632041
+2230,,tersesat jalan,迷路,,,yuhui,0,1608632041
+2231,,kenal,認識,,,yuhui,0,1608632041
+2232,,Cuma,只要,,,yuhui,0,1608632041
+2233,,menyeberangi,渡過,,,yuhui,0,1608632041
+2234,,belok,轉彎,,,yuhui,0,1608632041
+2235,,sekuliah,始終,,,yuhui,0,1608632041
+2236,,menumpang,寄宿,,,yuhui,0,1608632041
+2237,,konvokesyen,畢業典禮,,,yuhui,0,1608632041
+2238,,hujung,末端,,,yuhui,0,1608632041
+2239,,terawal,最早,,,yuhui,0,1608632041
+2240,,meneroka,開拓,,,yuhui,0,1608632041
+2241,,menetap,定居,,,yuhui,0,1608632041
+2242,,merantau,謀生,,,yuhui,0,1608632041
+2243,,berkahwin,結婚,,,yuhui,0,1608632041
+2244,,mendirikan,建立,,,yuhui,0,1608632041
+2245,,rumah tangga,家庭,,,yuhui,0,1608632042
+2246,,orang rumah,妻子,,,yuhui,0,1608632042
+2247,,sudi,愿意,,,yuhui,0,1608632042
+2248,,temankan,陪伴,,,yuhui,0,1608632042
+2337,,jemput,邀請,,,yuhui,0,1609670338
+2338,,salam,問候,,,yuhui,0,1609670338
+2339,,catatan,記錄,,,yuhui,0,1609670338
+2340,,perkarangan,庭院,,,yuhui,0,1609670338
+2341,,tumpuan,目標,,,yuhui,0,1609670338
+2342,,jarang,很少,,,yuhui,0,1609670338
+2343,,bekalan,飯盒,,,yuhui,0,1609670338
+2344,,rujukan,參考,,,yuhui,0,1609670338
+2345,,memperuntukan,分配,,,yuhui,0,1609670338
+2346,,pengetahuan am,常識,,,yuhui,0,1609670338
+2347,,menukar,更換,,,yuhui,0,1609670338
+2348,,sebentar,一會兒,,,yuhui,0,1609670338
+2349,,kelas tambahan,補習班,,,yuhui,0,1609670338
+2350,,makan malam,吃晚餐,,,yuhui,0,1609670338
+2351,,menghafalnya,背誦,,,yuhui,0,1609670338
+2352,,pengerusi,主席,,,yuhui,0,1609670339
+2353,,para,全部,,,yuhui,0,1609670339
+2354,,mencipta,發明,,,yuhui,0,1609670339
+2355,,tahniah,恭賀,,,yuhui,0,1609670339
+2356,,mempromosikan,介紹,,,yuhui,0,1609670339
+2357,,mempromosikan,介紹,,,yuhui,0,1609670339
+2358,,mempromosikan,介紹,,,yuhui,0,1609670339
+2359,,pentas,平台,,,yuhui,0,1609670339
+2360,,diserapkan,吸收,,,yuhui,0,1609670339
+2361,,menyaksikan,見證,,,yuhui,0,1609670339
+2362,,hebatan,厲害,,,yuhui,0,1609670339
+2363,,luar biasa,非比尋常,,,yuhui,0,1609670339
+2364,,kelebihan,優點,,,yuhui,0,1609670339
+2365,,merian,隆重,,,yuhui,0,1609670339
+2366,,yakin,相信,,,yuhui,0,1609670339
+2367,,lancar,順暢,,,yuhui,0,1609670339
+2368,,kalah,失敗,,,yuhui,0,1609670340
+2369,,pencemaran,污染,,,yuhui,0,1609670340
+2370,,alam sekitar,環境,,,yuhui,0,1609670340
+2371,,kerap,常常,,,yuhui,0,1609670340
+2372,,sering,常常,,,yuhui,0,1609670340
+2373,,udara,空氣,,,yuhui,0,1609670340
+2374,,pandang ringan,看輕,,,yuhui,0,1609670340
+2375,,sampah,垃圾,,,yuhui,0,1609670340
+2376,,puntung rokok,香煙蒂,,,yuhui,0,1609670340
+2377,,semak,丛林,,,yuhui,0,1609670340
+2378,,menganggap,認為,,,yuhui,0,1609670340
+2379,,menyalurkan,排放,,,yuhui,0,1609670340
+2380,,sisa,殘留物,,,yuhui,0,1609670340

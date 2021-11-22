@@ -114,12 +114,21 @@ body {
   margin-bottom:4px;
 }
 
+.vocab-header{
+
+  border-bottom: 1px solid #696a6b;
+  padding-top:2px;
+  padding-bottom: 4px;
+  margin-top:4px;
+  margin-bottom:4px;
+  font-weight: bold;
+}
+
 .hand{
   cursor:pointer;
 }
 
 .vocab{
-  font-weight: bold;
   color:#1b6ec2
 }
 

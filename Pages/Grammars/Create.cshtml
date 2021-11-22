@@ -1,0 +1,56 @@
+@page
+@model Lingo.Pages.Grammars.CreateModel
+@{
+    ViewData["Title"] = "Create Grammar Essay";
+}
+
+<h1>Create Grammar Essay</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="@Model.Grammar.Title"></label>
+        <input class="form-control" asp-for="@Model.Grammar.Title" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Title"></span>
+    </div>
+    <div class="form-group">     
+        <div class="form-check form-check-inline">
+            <label class="mr-4">Language</label>
+            @foreach (var language in Model.Languages)
+            {
+                <input class="form-check-input ml-4" type="radio" asp-for="@Model.Grammar.Language" value="@language" /><label class="form-check-label">@language</label>
+            }
+            <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Language"></span>
+        </div>
+    </div>
+    <div class="form-group">    
+        <label asp-for="@Model.Grammar.Category"></label>
+        <input class="form-control" asp-for="@Model.Grammar.Category" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Category"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Grammar.Source"></label>
+        <input class="form-control" asp-for="@Model.Grammar.Source" />
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Source"></span>
+    </div>
+    <div class="form-group">
+        <label>Upload PDF File</label>
+        <input type="file" asp-for="Upload" accept=".pdf"/>
+    </div>
+     <div class="form-group">
+        <label asp-for="@Model.Grammar.Text"></label>
+        <div>
+            <textarea class="form-control" asp-for="@Model.Grammar.Text"></textarea>
+        </div>
+        <span class="font-weight-bold text-danger" asp-validation-for="@Model.Grammar.Text"></span>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Create" />
+</form>
+
+@section Scripts{
+    <script>
+     tinymce.init({
+        selector: 'textarea',  // change this value according to your HTML
+        plugins: 'autoresize'
+    });
+    </script>
+}

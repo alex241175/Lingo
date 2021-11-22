@@ -1,17 +1,25 @@
 <div>
-    <ul class="pagination">
-
+    <ul class="pagination" v-if="count>0">
+        <li v-if="showFirst" class="page-item">
+            <button v-on:click="load(1)" class="page-link"><<</button>
+        </li>
         <li v-if="showPrevious" class="page-item">
-            <button v-on:click="load(currentPage - 1)" class="page-link">Previous</button>
+            <button v-on:click="load(currentPage - 1)" class="page-link"><</button>
         </li>
-        <template v-for="(index, p) in totalPages">
-            <li class="page-item" v-bind:class=" index == currentPage ? 'active' : ''">
-                <button v-on:click="load(index)" class="page-link">{{ index }}</button>
-            </li>
+        <template v-for="p in pageRange">
+            <template v-if="p > 0 && p <= totalPages">
+                <li class="page-item" v-bind:class=" p == currentPage ? 'active' : ''">
+                    <button v-on:click="load(p)" class="page-link">{{ p }}</button>
+                </li>
+            </template>
         </template>
-
+        <input class="page-finder mx-2" v-model="goToPage" size="5" v-on:keyup.enter="load(goToPage)" v-on:blur="load(goToPage)" />
         <li v-if="showNext" class="page-item">
-            <button v-on:click="load(currentPage + 1)" class="page-link">Next</button>
+            <button v-on:click="load(currentPage + 1)" class="page-link">></button>
         </li>
+        <li v-if="showLast" class="page-item">
+            <button v-on:click="load(totalPages)" class="page-link">>></button>
+        </li>
+        <li class="mx-2 page-item"> Total Pages : <span v-text="totalPages"></span> (<span v-text="count"></span>)</li>
     </ul>
 </div>

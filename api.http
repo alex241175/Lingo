@@ -2,6 +2,18 @@ GET https://localhost:5001/api/vocab HTTP/1.1
 
 ###
 
+GET https://localhost:5001/api/vocab/?IsReview=0&Language=English&Category=User&CurrentPage=1&PageSize=20&UserId=15
+
+###
+
+GET https://localhost:5001/api/vocab/12 HTTP/1.1
+
+###
+
+GET https://localhost:5001/api/vocab/typeahead?Language=English&UserId=15 HTTP/1.1
+
+###
+
 GET https://localhost:5001/api/vocab/essay/4 HTTP/1.1
 
 ###
@@ -55,5 +67,17 @@ https://translation.googleapis.com/language/translate/v2?key=AIzaSyDDTxvvy4APx1x
 ###
 
 GET https://localhost:5001/api/vocab/translate/boy HTTP/1.1
+
+###
+
+GET https://localhost:5001/api/vocab/dict/miss  HTTP/1.1
+
+###
+
+GET https://localhost:5001/api/vocab/mcq/?Language=English&Category=User&CurrentPage=1&PageSize=20&UserId=15
+
+###
+
+DELETE https://localhost:5001/api/review/11
 
 ###

@@ -1,0 +1,21 @@
+﻿@page
+@model Lingo.Pages.Import.IndexModel
+@{
+}
+
+<h3>Import Vocab Excel </h3>
+
+<form class="mt-4" method="post" enctype="multipart/form-data">
+    <div class="row my-2">
+        <div class="col-md-4">
+            <input type="file" asp-for="Upload" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="submit" name="Upload" value="Upload" class="btn btn-primary" />
+        </div>
+    </div>
+
+</form>
+<div class="card-body">@Model.Message</div>

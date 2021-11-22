@@ -21,10 +21,10 @@
             <span>@Model.Essay.Category</span> |
             <span>@Model.Essay.Language</span> |
             <span>@Model.Essay.Source</span> |
-            @*<span>@Model.Essay.Created.Value.ToString("dd MMM yyyy")</span>
-        </div>*@
-        <div class="border mt-2 p-2">
-           <span id="text">@Html.Raw(@Model.Essay.Text)</span>
+            <span>@Model.Essay.Created.ToString("dd MMM yyyy")</span>
+        </div>
+        <div class="border mt-2 p-2" id="text" v-on:mouseUp="addingVocabFromEssay">
+           <span>@Html.Raw(@Model.Essay.Text)</span>
         </div>
 
     </div>
@@ -34,15 +34,20 @@
         <div>
             <div class="mb-2">
                 <button type="button" class="btn btn-primary" v-on:click="addingVocabFromEssay">Add</button>
+                <small class="text-muted">double click or select the word in essay to add vocab</small>
             </div>
             <div v-if="vocabs.length == 0" class="alert alert-info" role="alert">No vocab found!</div>
             <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
-                <div class="col-2 vocab-item" v-text="'(' + ( index + 1 ) + ')'"></div>
-                <div class="col-5 vocab-item hand" v-text="v.text" v-on:click="updating(v)"></div>
+                <div class="col-1 vocab-item" v-text="'(' + ( index + 1 ) + ')'"></div>
+                <div class="col-4 vocab-item hand" v-text="v.text" data-toggle="collapse" v-bind:data-target="'#collapse' + index" ></div>
                 <div class="col-3 vocab-item" v-text="v.chinese"></div>
-                <div class="col-2 vocab-item">
-                    <button v-on:click="remove(index, v.vocabId, v.text)" >Del</button>
-                </div>            
+                <div class="col-3 vocab-item row">
+                    <button class="btn" v-on:click="updating(v)"><i class="fa fa-edit fa-lg"></i></button>
+                    <button class="btn" v-on:click="remove(index, v.vocabId, v.text)"><i class="fa fa-trash-o fa-lg"></i></button>
+                </div>
+                <div v-bind:id="'collapse'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
+                    <div class="card-body" v-html="v.note"></div>
+                </div>       
             </div>
         </div>       
     </div> <!-- vocab list -->
@@ -61,7 +66,8 @@
                         <div class="form-group">
                             <label for="text" class="col-form-label">Text:</label>
                             <input type="text" class="form-control" id="text" v-model="vocab.text">
-                            <button type="button" class="btn btn-primary" v-on:click="translate">Google Translate</button>
+                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
+                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
                         </div>
                         <div class="form-group">
                             <label for="chinese" class="col-form-label">Chinese:</label>
@@ -69,7 +75,8 @@
                         </div>
                         <div class="form-group">
                             <label for="note" class="col-form-label">Note:</label>
-                            <textarea rows="5" type="text" class="form-control" id="note" v-model="vocab.note"></textarea>
+                            <div v-if="!editNote" class="hand" v-on:click="editNote = true" v-html="vocab.note"></div>
+                            <textarea v-if="editNote" v-on:blur="editeNote == false" rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
                         </div>
                     </form>
                 </div>
@@ -92,15 +99,15 @@
                 //in vue.js, all properties must start with small letter
                 vocabs:[],
                 isSaveEssay:false,
+                editNote: false,
                 vocab:{
-                    language: '@Model.Essay.Language',
+                    language: '',
                     text:'',
                     chinese:'',
                     note:'',
-                    essayId: @Model.Essay.EssayId,
-                    category:'Essay',
-                    userId:@auth.UserId,  
-                    review:false,
+                    essayId: null,
+                    category:'',
+                    userId:null,  
                 },
                 defaultVocab:{
                     language: '@Model.Essay.Language',
@@ -108,9 +115,8 @@
                     chinese:'',
                     note:'',
                     essayId: @Model.Essay.EssayId,
-                    category:'Essay',
+                    category:'User',
                     userId:@auth.UserId,
-                    review:false,
                 },
             }
             },
@@ -136,7 +142,7 @@
                 },
                 adding(){
                     this.vocab = {...this.defaultVocab}
-                    console.log('vocab', this.vocab)
+                    this.editNote = false
                     $('#modal').modal('show')
                 },
                 updating(v){
@@ -154,7 +160,6 @@
                         EssayId: this.vocab.essayId,
                         Category:this.vocab.category,
                         UserId:this.vocab.userId,
-                        Review:this.vocab.review,
                     }
                     if (this.vocab.vocabId){
                         vocab.VocabId = this.vocab.vocabId
@@ -243,7 +248,8 @@
                         this.isSaveEssay = true
                         $('#modal').modal('show')
                     }else{
-                        alert("Please select a vocab first")
+
+                        // alert("Please select a vocab first")
                     }
                 },
 
@@ -271,6 +277,16 @@
                         const obj = JSON.parse(response);
                         const result = obj.data.translations[0].translatedText
                         this.vocab.chinese = result                        
+                    })
+                },
+
+                dict(){
+                    // for English word only
+                    const sourceText = this.vocab.text                    
+                    fetch(`../../api/vocab/dict/${sourceText}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocab.note = response.e + '<br>' + response.s  + '<br>' + response.t                    
                     })
                 }
             }

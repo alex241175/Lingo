@@ -7,34 +7,62 @@
 
 <div id="app" class="row">
     <!-- Vocab list -->
-     <div>
+     <div class="col-lg-10">
         <h3>Vocabulary List</h3>
         <div>
+            <!-- filter -->
             <form class="form-inline my-4">
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" v-on:click="adding">Add</button>
                 </div>
                 <div class="form-group">
                     <label for="language" class="mx-2">Language</label>
-                    <select id="language" class="form-control" v-model="filterLanguage" v-on:change="load">
+                    <select id="language" class="form-control" v-model="filterLanguage" v-on:change="load(1)">
                         <option selected>Choose...</option>
                         <option>English</option>
                         <option>Malay</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-outline-secondary mx-2" v-on:click="toggleChinese">中文</button>
+                <label for="category" class="mx-2">Category</label>
+                    <select id="category" class="form-control" v-model="filterCategory" v-on:change="load(1)">
+                        <option selected>User</option>
+                        <option>1000</option>
+                        <option>3000</option>
+                        <option>6000</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-secondary ml-4" v-on:click="toggleAllChinese">Toggle Chinese</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goReview">
+                        > Review</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goMCQ">> MCQ</button>                    
                 </div>
             </form>
             <partial name="_PaginationVue" />            
             <div v-if="vocabs.length == 0" class="alert alert-info" role="alert">No vocab found!</div>
-            <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
-                <div class="col-2 vocab-item">{{ index + 1 }}</div>
-                <div class="col-5 vocab-item hand" v-text="v.text" v-on:click="updating(v)"></div>
-                <div class="col-3 vocab-item" ><span v-if="showChinese" v-text="v.chinese"></span></div>
-                <div class="col-2 vocab-item">
-                    <button v-on:click="remove(v.vocabId)" >Del</button>
-                </div>            
+            <div v-else>
+                <!-- header row -->
+                <div class="row">
+                    <div class="col-1 vocab-header">No</div>
+                    <div class="col-4 vocab-header">Text</div>
+                    <div class="col-4 vocab-header">Chinese</div>
+                    <div class="col-3 vocab-header"></div>
+                </div>
+                <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
+                    <div class="col-1 vocab-item">{{ index + 1 }}</div>
+                    <div class="col-4 vocab-item hand" v-text="v.text" data-toggle="collapse" v-bind:data-target="'#collapse' + index" ></div>
+                    <div class="col-4 vocab-item hand" v-on:click="v.showChinese = !v.showChinese"><span v-if="v.showChinese" v-text="v.chinese"></span></div>
+                    <div class="col-3 vocab-item">
+                        <button v-if="v.isReview" class="btn" v-on:click="unreview(v.reviewId,index)" data-toggle="tooltip" data-placement="bottom" title="clear review"><i class="fa fa-bookmark fa-lg"></i></button>
+                        <button v-if="!v.isReview" class="btn" v-on:click="review(v.vocabId,index)" data-toggle="tooltip" data-placement="bottom" title="set review"><i class="fa fa-bookmark-o fa-lg"></i></button>
+                        <button class="btn" v-on:click="updating(v)"><i class="fa fa-edit fa-lg"></i></button>
+                        <button class="btn" v-on:click="remove(v.vocabId)"><i class="fa fa-trash-o fa-lg"></i></button>
+                    </div>
+                    <div v-bind:id="'collapse'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
+                        <div class="card-body" v-html="v.note"></div>
+                    </div>              
+                </div>
             </div>
         </div>       
     </div> <!-- vocab list -->
@@ -43,7 +71,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab' : 'New Vocab'}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab (' + vocab.vocabId + ')': 'New Vocab'}}</h5>
+                    <div v-if="vocab.vocabId">
+                        <button class="btn btn-light ml-4" v-on:click="changeNew">New Vocab</button>
+                        <button v-if="isThisReview" class="btn" v-on:click="unreview(vocab.vocabId,-1)"><i class="fa fa-bookmark fa-lg"></i></button>
+                        <button v-if="!isThisReview" class="btn" v-on:click="review(vocab.vocabId,-1)"><i class="fa fa-bookmark-o fa-lg"></i></button>
+                    </div>
                     <button type="button" class="close" aria-label="Close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -66,7 +99,8 @@
                         <div class="form-group">
                             <label for="text" class="col-form-label">Text:</label>
                             <input type="text" class="form-control" id="text" v-model="vocab.text" autocomplete="off">
-                            <button type="button" class="btn btn-primary" v-on:click="translate">Google Translate</button>
+                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
+                            <button type="button" v-if="vocab.language == 'English'" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
                         </div>
                         <div class="form-group">
                             <label for="chinese" class="col-form-label">Chinese:</label>
@@ -74,13 +108,18 @@
                         </div>
                         <div class="form-group">
                             <label for="note" class="col-form-label">Note:</label>
-                            <textarea rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
+                            <div v-if="!editNote" class="hand" v-on:click="editNote = true" v-html="vocab.note"></div>
+                            <textarea v-if="editNote" v-on:blur="editeNote == false" rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <div v-if="!vocab.vocabId">
+                        <input type="checkbox" v-model="addToReview">
+                        <label>Add to Review</label>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" v-on:click="upsert">Send</button>
+                    <button type="button" class="btn btn-primary" v-on:click="upsert" accesskey="s" title="Ctrl+Alt+s">Send</button>
                 </div>
             </div>
         </div>
@@ -95,9 +134,14 @@
             data() {
             return {
                 //in vue.js, all properties must start with small letter
-                filterLanguage:'Choose...',
+                filterLanguage:'English',
+                filterCategory:'User',
                 currentLanguage:'Choose...',
-                showChinese: true,
+                showAllChinese: true,
+                addToReview: true,
+                isThisReview: false,
+                editNote: false,
+                checkedVs:[],
                 vocabs:[],
                 vocab:{
                     language: '',
@@ -106,21 +150,21 @@
                     note:'',
                     essayId: '',
                     category:'',
-                    userId:@auth.UserId,
-                    review:false,
+                    userId:null,
                 },
                 defaultVocab:{
                     language: '',
                     text:'',
                     chinese:'',
                     note:'',
-                    essayId: 4,
-                    category:'',
-                    userId:1,
-                    review:false,
+                    essayId: null,
+                    category:'User',
+                    userId:@auth.UserId,
                 },
-                pageSize: 5,
-                currentPage : 0,
+                pageSize: 20,
+                currentPage : 1,
+                goToPage:'',
+                pageRangeSize: 2,
                 count: 0,
             }
             },
@@ -136,6 +180,21 @@
                 },
                 showNext(){
                     return this.currentPage < this.totalPages
+                },
+                showFirst(){
+                    return this.currentPage != 1
+                },
+                showLast(){
+                    return this.currentPage != this.totalPages
+                },
+                pageRange(){
+                    const initialNum = this.currentPage - this.pageRangeSize
+                    const limitNum =  (this.currentPage + this.pageRangeSize )  + 1
+                    var arr = [];
+                    for (var i = initialNum; i < limitNum; i++) {
+                        arr.push(i);
+                    } 
+                    return arr
                 }
             },
             methods:{
@@ -144,26 +203,63 @@
                         this.currentPage = 1
                         this.currentLanguage = this.filterLanguage
                     }else{
-                        this.currentPage = currentPage
+                        this.currentPage = parseInt(currentPage)
                     }
                     const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
-                    fetch(`./api/vocab/?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}`)
+                    const category = this.filterCategory
+                    fetch(`./api/vocab/?Language=${language}&Category=${category}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
                     .then(response => response.json())
                     .then(response => {
-                        this.vocabs = response.data
+                        var vocabs = response.data.map(item => {
+                            return {
+                                ...item,
+                                showChinese: true,
+                            }
+                        })                        
+                        this.vocabs = vocabs
                         this.count = response.count
+                        this.goToPage = ''
                     })
                 },
-                toggleChinese(){
-                    this.showChinese = !this.showChinese
+                goMCQ(){
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    const category = this.filterCategory
+                    location.href= `./Vocabs/mcq/?Language=${language}&Category=${category}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}`                  
+                },
+                toggleAllChinese(){
+                    this.showAllChinese = !this.showAllChinese
+                    this.vocabs.forEach(
+                        v => v.showChinese = this.showAllChinese
+                    )
+                },
+                goReview(){
+                    // this.showReview = !this.showReview
+                    // this.currentPage = 1
+                    // this.load(this.currentPage)
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    location.href= `./Vocabs/review/?Language=${language}&PageSize=${this.pageSize}`                  
+ 
                 },
                 adding(){
                     this.vocab = {...this.defaultVocab}
-                    console.log('vocab', this.vocab)
+                    this.vocab.language = this.filterLanguage
+                    this.isThisReview = false
+                    this.addToReview = true
                     $('#modal').modal('show')
+                    // $('#text').focus()  // not working
+                },
+                changeNew(){
+                    //const text = this.vocab.text
+                    this.vocab = {...this.defaultVocab}
+                    //this.vocab.text = text
+                    this.vocab.language = this.filterLanguage
+                    $('#text').focus() 
                 },
                 updating(v){
                     this.vocab = {...v}
+                    this.editNote = false
+                    this.isThisReview = v.isReview
+                    this.addToReview = false
                     $('#modal').modal('show')
                 },
                 upsert(){
@@ -171,13 +267,12 @@
                     // first letter convert to capital letter
                     const vocab = {
                         Language: this.vocab.language,
-                        Text:this.vocab.text,
+                        Text:this.vocab.text.trim(),
                         Chinese:this.vocab.chinese,
                         Note:this.vocab.note,                
                         EssayId: this.vocab.essayId,
                         Category:this.vocab.category,
                         UserId:this.vocab.userId,
-                        Review:this.vocab.review,
                     }
                     if (this.vocab.vocabId){
                         vocab.VocabId = this.vocab.vocabId
@@ -193,8 +288,20 @@
                     .then(response => response.json())
                     .then(response => {
                         this.vocab = {...this.defaultVocab}
-                        this.loadVocabList()
-                         $('#modal').modal('hide')
+                        this.isThisReview = false
+                        this.vocab.language = this.filterLanguage
+                        if(operation == "POST"){   // add new
+                            this.load(this.totalPages) // reload last page
+                        }else{  // update
+                            this.load(this.currentPage)
+                        }
+                        $('#text').focus()
+
+                        // add to review if yes
+                        if (this.addToReview){
+                            this.review(response.vocabId, -1) 
+                        }
+                        // $('#modal').modal('hide')
                     })
                 },
                 remove(vocabId){                    
@@ -202,11 +309,11 @@
                     fetch('./api/vocab/'+vocabId,{ method:'delete'})
                     .then(response => response.json())
                     .then(response => {
-                        this.loadVocabList()
                         toastr.options = {
                             timeOut: "1000",
                         }
                         toastr.success('Deleted')
+                        this.load(this.currentPage)
                     })
                 },
 
@@ -219,9 +326,92 @@
                         const result = obj.data.translations[0].translatedText
                         this.vocab.chinese = result                        
                     })
-                }
+                },
+                dict(){
+                    // for English word only
+                    const sourceText = this.vocab.text                    
+                    fetch(`../../api/vocab/dict/${sourceText}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocab.note = response.e + '<br>' + response.s  + '<br>' + response.t                    
+                    })
+                },
+                review(vocabId, index){
+                    const review = {
+                        VocabId: vocabId,
+                        UserId:@auth.UserId,
+                    }
+                    fetch('./api/review',{
+                        method: 'POST', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(review),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        if (index == -1){  // from modal 
+                            this.isThisReview = true
+                        }else{
+                            this.vocabs[index].isReview = true
+                        }
+                    })
+                },
+                unreview(reviewId, index){
+                     fetch('./api/review/' + reviewId,{
+                        method: 'DELETE',        
+                    })
+                    .then(response => {
+                        if (index == -1){  // from modal 
+                            this.isThisReview = false
+                        }else{
+                            this.vocabs[index].isReview = false
+                        }
+                    })          
+                },
             }
         })
+
+        var $input = $("#text");
+        $input.typeahead({
+            source: function (query, process) {
+                $.get(`./api/vocab/typeahead`, {
+                     Text : query,
+                     Language : 'English',
+                     UserId :15
+                    }, function(data, status)
+                    {
+                        //console.log(data);
+                        return process(data);
+                    });
+            },
+            autoSelect: true,
+            minLength: 2,
+            items:8,
+            afterSelect: function (data) {
+                //print the id to developer tool's console
+                $.get(`./api/vocab/${data.id}`, function(data, status)
+                {
+                    app.vocab = data
+                    app.editNote = false
+                    app.isThisReview = app.vocab.isReview
+                    delete app.vocab.isReview
+                });
+            }
+     
+        });
+
+        $('#modal').on('shown.bs.modal', function () {
+            if (!app.vocab.vocabId){   // adding vocab mode
+                $('#text').focus()
+            }
+        })
+
+        // initialize tooltips everywhere
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
     </script>
 }
 

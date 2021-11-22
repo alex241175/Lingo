@@ -14,5 +14,8 @@ namespace Lingo.Models
         public DbSet<Essay> Essays { get; set; }
         public DbSet<Vocab> Vocabs { get; set; }
         public DbSet<Sample> Samples { get; set; }
+        public DbSet<Grammar> Grammars { get; set; }
+        public DbSet<Result> Results { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }

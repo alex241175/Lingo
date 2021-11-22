@@ -1,0 +1,330 @@
+@page
+@{
+    ViewData["Title"] = "Review Vocab";
+}
+@using Lingo.Services
+@inject Auth auth
+
+<div id="app" class="row">
+    <!-- Review Vocab list -->
+     <div class="col-lg-10">
+        <h3>Review Vocabulary List</h3>
+        <div>
+            <!-- filter -->
+            <form class="form-inline my-4">
+                <div class="form-group">
+                    <label for="language" class="mx-2">Language</label>
+                    <select id="language" class="form-control" v-model="filterLanguage" v-on:change="load(1)">
+                        <option selected>Choose...</option>
+                        <option>English</option>
+                        <option>Malay</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-secondary ml-4" v-on:click="toggleAllChinese">Chinese</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goVocab">>Vocab</button>
+                    <button type="button" class="btn btn-light btn-sm mx-2" v-on:click="selectMode = !selectMode">Select</button>
+                    <div v-if="selectMode" class="ml-4">
+                        <button type="button" class="btn btn-light btn-sm ml-2" v-on:click="unreviewSelected">Clear Review</button>
+                    </div>    
+                </div>
+            </form>
+            <partial name="_PaginationVue" />            
+            <div v-if="vocabs.length == 0" class="alert alert-info" role="alert">No vocab found!</div>
+            <div v-else>
+                <!-- header row -->
+                <div class="row">
+                    <div class="col-1 vocab-header" v-if="selectMode"><input type="checkbox" v-model="allSelected" v-on:click="toggleSelectAll"></div>                    
+                    <div class="col-1 vocab-header">No</div>
+                    <div class="col-3 vocab-header">Text</div>
+                    <div class="col-3 vocab-header">Chinese</div>
+                    <div class="col-3 vocab-header"></div>
+                </div>
+                <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
+                    <div class="col-1 vocab-item" v-if="selectMode">
+                        <input class="checkbox" type="checkbox" v-bind:value="v.reviewId" v-model="selectedReviewIds">
+                    </div>
+                    <div class="col-1 vocab-item">{{ index + 1 }}</div>
+                    <div class="col-3 vocab-item hand" v-text="v.text" data-toggle="collapse" v-bind:data-target="'#collapse' + index" ></div>
+                    <div class="col-3 vocab-item hand" v-on:click="v.showChinese = !v.showChinese"><span v-if="v.showChinese" v-text="v.chinese"></span></div>
+                    <div class="col-3 vocab-item">
+                        <button v-if="v.isReview" class="btn" v-on:click="unreview(v.reviewId)"><i class="fa fa-bookmark fa-lg"></i></button>
+                        <button class="btn" v-on:click="updating(v)"><i class="fa fa-edit fa-lg"></i></button>
+                    </div>
+                    <div v-bind:id="'collapse'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
+                        <div class="card-body" v-html="v.note"></div>
+                    </div>              
+                </div>
+            </div>
+        </div>       
+    </div> <!-- vocab list -->
+    <!-- modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab (' + vocab.vocabId + ')': 'New Vocab'}}</h5>
+                    <div v-if="vocab.vocabId">
+                        <button v-if="isThisReview" class="btn" v-on:click="unreview(vocab.vocabId,-1)"><i class="fa fa-bookmark fa-lg"></i></button>
+                    </div>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                         <div class="form-group">
+                            <label for="text" class="col-form-label">Language:</label>                            
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="English">English
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="Malay">Malay
+                                </label>
+                            </div>
+                         </div>
+                        <div class="form-group">
+                            <label for="text" class="col-form-label">Text:</label>
+                            <input type="text" class="form-control" id="text" v-model="vocab.text" autocomplete="off">
+                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
+                            <button type="button" v-if="vocab.language == 'English'" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Chinese:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="vocab.chinese" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="note" class="col-form-label">Note:</label>
+                            <div v-if="!editNote" class="hand" v-on:click="editNote = true" v-html="vocab.note"></div>
+                            <textarea v-if="editNote" v-on:blur="editeNote == false" rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="upsert" accesskey="s" title="Ctrl+Alt+s">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        // has to embed vue.js in this razor page. If linked to external js, cannot insert value from view model
+        const app =  new Vue({
+            el: '#app',
+            data() {
+            return {
+                //in vue.js, all properties must start with small letter
+                filterLanguage:'English',
+                currentLanguage:'Choose...',
+                showAllChinese: true,
+                selectMode: false,
+                isThisReview: false,
+                editNote: false,
+                selectedReviewIds: [],
+                allSelected: false,
+                vocabs:[],
+                vocab:{
+                    language: '',
+                    text:'',
+                    chinese:'',
+                    note:'',
+                    essayId: '',
+                    category:'',
+                    userId:null,
+                },
+                defaultVocab:{
+                    language: '',
+                    text:'',
+                    chinese:'',
+                    note:'',
+                    essayId: null,
+                    category:'User',
+                    userId:@auth.UserId,
+                },
+                pageSize: 20,
+                currentPage : 1,
+                goToPage:'',
+                pageRangeSize: 2,
+                count: 0,
+            }
+            },
+            created(){
+                this.load(1)
+            },
+            computed:{
+                totalPages(){
+                    return Math.ceil(this.count/this.pageSize)
+                },
+                showPrevious(){
+                    return this.currentPage > 1
+                },
+                showNext(){
+                    return this.currentPage < this.totalPages
+                },
+                showFirst(){
+                    return this.currentPage != 1
+                },
+                showLast(){
+                    return this.currentPage != this.totalPages
+                },
+                pageRange(){
+                    const initialNum = this.currentPage - this.pageRangeSize
+                    const limitNum =  (this.currentPage + this.pageRangeSize )  + 1
+                    var arr = [];
+                    for (var i = initialNum; i < limitNum; i++) {
+                        arr.push(i);
+                    } 
+                    return arr
+                }
+            },
+            methods:{
+                load(currentPage){
+                    if (this.currentLanguage != this.filterLanguage){ // switching to new language
+                        this.currentPage = 1
+                        this.currentLanguage = this.filterLanguage
+                    }else{
+                        this.currentPage = parseInt(currentPage)
+                    }
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    const category = this.filterCategory
+                    fetch(`../../api/vocab/review?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
+                    .then(response => response.json())
+                    .then(response => {
+                        var vocabs = response.data.map(item => {
+                            return {
+                                ...item,
+                                showChinese: true,
+                            }
+                        })                        
+                        this.vocabs = vocabs
+                        this.count = response.count
+                        this.goToPage = ''
+                    })
+                },
+                goVocab(){
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    location.href= `../../Vocabs?Language=${language}&Category=&CurrentPage=1&PageSize=${this.pageSize}`                  
+                },
+                toggleAllChinese(){
+                    this.showAllChinese = !this.showAllChinese
+                    this.vocabs.forEach(
+                        v => v.showChinese = this.showAllChinese
+                    )
+                },
+                updating(v){
+                    this.vocab = {...v}
+                    this.editNote = false
+                    this.isThisReview = v.isReview
+                    $('#modal').modal('show')
+                },
+                upsert(){
+                    let operation = 'POST'
+                    // first letter convert to capital letter
+                    const vocab = {
+                        Language: this.vocab.language,
+                        Text:this.vocab.text.trim(),
+                        Chinese:this.vocab.chinese,
+                        Note:this.vocab.note,                
+                        EssayId: this.vocab.essayId,
+                        Category:this.vocab.category,
+                        UserId:this.vocab.userId,
+                    }
+                    if (this.vocab.vocabId){
+                        vocab.VocabId = this.vocab.vocabId
+                        operation = 'PUT'
+                    }
+                    fetch('./api/vocab',{
+                        method: operation, 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(vocab),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocab = {...this.defaultVocab}
+                        this.isThisReview = false
+                        this.vocab.language = this.filterLanguage
+                        if(operation == "POST"){   // add new
+                            this.load(this.totalPages) // reload last page
+                        }else{  // update
+                            this.load(this.currentPage)
+                        }
+                        $('#text').focus()
+
+                        // add to review if yes
+                        if (this.addToReview){
+                            this.review(response.vocabId, -1) 
+                        }
+                        // $('#modal').modal('hide')
+                    })
+                },
+                translate(){
+                    const sourceText = this.vocab.text                    
+                    fetch(`./api/vocab/translate/${sourceText}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        const obj = JSON.parse(response);
+                        const result = obj.data.translations[0].translatedText
+                        this.vocab.chinese = result                        
+                    })
+                },
+                dict(){
+                    // for English word only
+                    const sourceText = this.vocab.text                    
+                    fetch(`../../api/vocab/dict/${sourceText}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocab.note = response.e + '<br>' + response.s  + '<br>' + response.t                    
+                    })
+                },
+                unreview(reviewId){
+                    fetch('../../api/review/' + reviewId, {
+                        method: 'DELETE',          
+                    })
+                    .then(response => {
+                        this.load(this.currentPage)                       
+                    })
+          
+                },
+                toggleSelectAll(){
+                    this.selectedReviewIds = [];
+                    if (!this.allSelected) {
+                        for (index in this.vocabs) {
+                            this.selectedReviewIds.push(this.vocabs[index].reviewId);
+                        }
+                        this.allSelected = true
+                    }
+                },
+                unreviewSelected(){
+                    if (this.selectedReviewIds.length == 0){
+                        alert("nothing selected")
+                        return
+                    }
+                    fetch('../../api/review/bulk',{
+                        method: 'DELETE', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(this.selectedReviewIds),
+                    })
+                    .then(response => {
+                        this.load(this.currentPage)  
+                    })
+                }
+            }
+        })
+
+
+
+    </script>
+}
+
+
+

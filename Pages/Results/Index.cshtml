@@ -1,0 +1,54 @@
+@page
+@model Lingo.Pages.Results.IndexModel
+@{
+    ViewData["Title"] = "Result";
+}
+
+<h3>Result Score</h3>
+<form method="get" class="form-inline my-4">
+    <div class="form-group">
+        <label for="language" class="mx-2">Language</label>
+        <select id="language" class="form-control" asp-for="Language" onchange="this.form.submit()">
+            <option selected>Choose...</option>
+            <option>English</option>
+            <option>Malay</option>
+        </select>
+    </div>
+</form>
+
+@if(Model.Results.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No result score found!</div>
+}
+else
+{
+    <partial name="_PaginationResult" />
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Language</th>
+                <th scope="col">Page</th>
+                <th scope="col">Score</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    @foreach(var s in Model.Results)
+    {
+    <tr>
+        <td>@s.Created.ToString("yyyy/MM/dd h:mm tt")</td>
+        <td>@s.Language</td>
+        <td>@s.Page</td>
+        <td>@s.Score</td>
+        <td>
+            <form asp-page-handler="delete" asp-route-resultId="@s.ResultId" method="post">
+                <button class="btn"><i class="fa fa-trash"></i></button>
+            </form>
+        </td>
+    </tr>            
+    }
+    </table>
+}
+
+
+

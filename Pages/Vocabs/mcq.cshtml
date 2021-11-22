@@ -1,0 +1,163 @@
+@page
+@{
+    ViewData["Title"] = "MCQ Test";
+}
+@using Lingo.Services
+@inject Auth auth
+
+<div id="app">
+    <!-- Vocab list -->
+    <h3>MCQ Test</h3>
+    <div class="row" v-for="(v, index) in vocabs" :key="v.vocabId">
+        <div class="col-1 vocab-item">{{ index + 1 }}</div>
+        <div class="col-2 vocab-item" v-text="v.text"></div>
+        <div class="col-4 vocab-item">
+            <ol type="a">
+                <li v-for="(item, index) in v.options" :key="item" class="mb-1">
+                    <button class="btn btn-light" style='text-align:left' v-text="item" v-on:click="check($event,item,v)"></button>
+                </li>
+            </ol>
+        </div>
+        <div class="col-1 vocab-item">
+            <button v-if="v.isReview" class="btn" v-on:click="unreview(v.vocabId,index)"><i class="fa fa-bookmark fa-lg"></i></button>
+            <button v-if="!v.isReview" class="btn" v-on:click="review(v.vocabId,index)"><i class="fa fa-bookmark-o fa-lg"></i></button>
+        </div>
+    </div>
+    <!-- vocab list -->
+    <!-- result -->
+    <div class="mt-4">
+        <div>正確：<span v-text="correctAnswers"></span></div>
+        <div>錯誤：<span v-text="wrongAnswers"></span></div>
+        <div>總共：<span v-text="vocabs.length"></span></div>
+        <button class="btn btn-primary mt-4" v-on:click="record">Record Score</button>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        // has to embed vue.js in this razor page. If linked to external js, cannot insert value from view model
+        const app =  new Vue({
+            el: '#app',
+            data() {
+            return {
+                //in vue.js, all properties must start with small letter
+                vocabs:[],
+                language: new URLSearchParams(window.location.search).get("Language"),
+                category: new URLSearchParams(window.location.search).get("Category"),
+                currentPage: new URLSearchParams(window.location.search).get("CurrentPage"),
+                pageSize: new URLSearchParams(window.location.search).get("PageSize"),
+                correctAnswers:0,
+                wrongAnswers :0,
+                }
+            },
+            created(){
+                this.load(1)
+            },
+            methods:{
+                load(){
+                    fetch(`../../api/vocab/mcq/?Language=${this.language}&Category=${this.category}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
+                    .then(response => response.json())
+                    .then(response => {
+                        const options = response.randomList.map(item => item.chinese)
+                        let data = response.data.map((item, index) =>{
+                            return {
+                                text : item.text,
+                                answer : item.chinese,
+                                options : [item.chinese].concat(options.slice(index*3,(index+1)*3)).shuffle(),
+                                isReview : item.isReview,
+                                vocabId : item.vocabId,
+                                checked : false,
+                            }
+                        })
+                        this.vocabs = data
+                    })
+                },
+                check(e, option, v){
+                    if(!v.checked){
+                        if(option == v.answer){
+                            $('<i class="fa fa-check ml-2" style="color:green"></i>').insertAfter($(e.target))
+                            this.correctAnswers++
+                        }else{
+                            $('<i class="fa fa-times ml-2" style="color:red"></i>').insertAfter($(e.target))
+                            this.wrongAnswers++
+                            //show the correct answer
+                            $('<i class="fa fa-check ml-2" style="color:green"></i>').insertAfter($('button:contains('+ v.answer + ')'))
+                        }
+                        v.checked = true
+                   }
+                },
+                review(vocabId, index){
+                    const review = {
+                        VocabId: vocabId,
+                        UserId:@auth.UserId,
+                    }
+                    fetch('../../api/review',{
+                        method: 'POST', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(review),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        this.vocabs[index].isReview = true
+                    })
+                },
+                unreview(vocabId, index){
+                    const review = {
+                        VocabId: vocabId,
+                        UserId:@auth.UserId,
+                    }
+                    fetch('../../api/review',{
+                        method: 'DELETE', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(review),
+                    })
+                    .then(response => {
+                        this.vocabs[index].isReview = false
+                    })          
+                },
+                record(){
+                    // first letter convert to capital letter
+                    const result = {
+                        Language: this.language,
+                        Page:this.category + '-' + this.currentPage,
+                        Score: Math.round((this.correctAnswers / this.vocabs.length) * 100),
+                        UserId:@auth.UserId,
+                    }
+                    fetch('../../api/result',{
+                        method: 'POST', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(result),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        toastr.options = {
+                            timeOut: "1000",
+                        }
+                        toastr.success('Your score has been added to result')
+                       
+                    })
+                },
+            }
+        })
+        Array.prototype.shuffle = function() {
+            var i = this.length, j, temp;
+            if ( i == 0 ) return this;
+            while ( --i ) {
+                j = Math.floor( Math.random() * ( i + 1 ) );
+                temp = this[i];
+                this[i] = this[j];
+                this[j] = temp;
+            }
+            return this;
+        }
+    </script>
+}
+
+
+
