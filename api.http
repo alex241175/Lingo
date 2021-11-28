@@ -2,11 +2,16 @@ GET https://localhost:5001/api/vocab HTTP/1.1
 
 ###
 
-GET https://localhost:5001/api/vocab/?IsReview=0&Language=English&Category=User&CurrentPage=1&PageSize=20&UserId=15
+GET https://localhost:5001/api/vocab/?Language=English&Category=User&CurrentPage=1&PageSize=20&UserId=15
 
 ###
 
-GET https://localhost:5001/api/vocab/12 HTTP/1.1
+GET https://localhost:5001/api/vocab/id/2 HTTP/1.1
+
+###
+
+
+GET https://localhost:5001/api/vocab/text/reduce HTTP/1.1
 
 ###
 
@@ -14,7 +19,7 @@ GET https://localhost:5001/api/vocab/typeahead?Language=English&UserId=15 HTTP/1
 
 ###
 
-GET https://localhost:5001/api/vocab/essay/4 HTTP/1.1
+GET https://localhost:5001/api/vocab/essay/2 HTTP/1.1
 
 ###
 
@@ -79,5 +84,17 @@ GET https://localhost:5001/api/vocab/mcq/?Language=English&Category=User&Current
 ###
 
 DELETE https://localhost:5001/api/review/11
+
+###
+
+GET https://localhost:5001/api/review/refresh?Language=Malay
+
+###
+
+GET https://localhost:5001/api/review/match/?Language=English&CurrentPage=1&PageSize=20&UserId=15
+
+###
+
+GET https://localhost:5001/api/review?Language=Malay&CurrentPage=1&PageSize=20&UserId=15
 
 ###

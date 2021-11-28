@@ -55,7 +55,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Vocabs/Index">Vocab</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Results/Index">Result</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Reviews/Index">Review</a>
                             </li>
                         }
                         @if (auth.IsAdmin){
@@ -73,7 +73,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (auth.IsLogin){
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">@auth.UserName</a>
+                                <a class="nav-link text-dark" href="#">@auth.UserName</a>
                             </li>
                              <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Logout">Log Out</a>

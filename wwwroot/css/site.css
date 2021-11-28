@@ -133,5 +133,15 @@ body {
 }
 
 .selected{
-  background-color: #ced4da;
+  background-color: #cbccce;
 }
+
+.answer{
+  min-height: 40px;
+  min-width:100px;
+  border: 1px solid lightgray;
+  text-align: center;
+  padding: 2px;
+}
+
+[v-cloak] { display: none; }

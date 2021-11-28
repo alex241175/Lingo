@@ -3,14 +3,16 @@ using System;
 using Lingo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lingo.Migrations
 {
     [DbContext(typeof(LingoDbContext))]
-    partial class LingoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211125235323_VocabEssayIds")]
+    partial class VocabEssayIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,9 +125,6 @@ namespace Lingo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Passed")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -135,32 +134,6 @@ namespace Lingo.Migrations
                     b.HasKey("ReviewId");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Lingo.Models.ReviewSetting", b =>
-                {
-                    b.Property<int>("ReviewSettingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("LastVocabId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PassedThreshold")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("VocabsCategory")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("VocabsPerDay")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ReviewSettingId");
-
-                    b.ToTable("ReviewSettings");
                 });
 
             modelBuilder.Entity("Lingo.Models.Sample", b =>
@@ -192,23 +165,6 @@ namespace Lingo.Migrations
                     b.HasKey("SampleId");
 
                     b.ToTable("Samples");
-                });
-
-            modelBuilder.Entity("Lingo.Models.Setting", b =>
-                {
-                    b.Property<int>("SettingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SettingId");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Lingo.Models.User", b =>

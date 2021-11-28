@@ -1,0 +1,197 @@
+@page
+@{
+    ViewData["Title"] = "Matching Test for Review";
+}
+@using Lingo.Services
+@inject Auth auth
+
+<div id="app">
+    <h3>Matching Test for Review</h3>
+    <!-- options list -->
+    <div>
+        <div class="row col-10">
+            <div v-for="(option, index) in options" :key="option">
+                <button class="btn btn-secondary ml-2 mt-2" v-text="option" v-on:click="matching(option)"></button>
+            </div>
+        </div>
+    </div>
+    <!-- question list -->
+    <div class="row">
+        <div class="col-6">
+            <div class="row mt-4" v-for="(v, index) in vocabs_firstHalf" :key="v.vocabId">
+                <div class="col-1">{{ index + 1 }}</div>
+                <div class="col-3" v-text="v.text"></div>
+                <div class="col-3">
+                    <div class="answer" v-bind:class="{ 'selected' : v.selected }" v-on:click="select(v)">
+                        <span v-text="v.answer"></span>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <span v-html="v.mark"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+             <div class="row mt-4" v-for="(v, index) in vocabs_secondHalf" :key="v.vocabId">
+                <div class="col-1">{{ index + 1 + half }}</div>
+                <div class="col-3" v-text="v.text"></div>
+                <div class="col-3">
+                    <div class="answer" v-bind:class="{ 'selected' : v.selected }" v-on:click="select(v)">
+                        <span v-text="v.answer"></span>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <span v-html="v.mark"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- vocab list -->
+    <!-- result -->
+    <div class="mt-4">
+        <div>正確：<span v-text="correctAnswers"></span></div>
+        <div>錯誤：<span v-text="wrongAnswers"></span></div>
+        <div>總共：<span v-text="vocabs.length"></span></div>
+        <button v-if="!isMarked" class="btn btn-primary mt-4" v-on:click="mark">Mark</button>
+        <button v-if="isMarked" class="btn btn-primary mt-4" onclick="javascript:location.reload()">Reload</button>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        // has to embed vue.js in this razor page. If linked to external js, cannot insert value from view model
+        const app =  new Vue({
+            el: '#app',
+            data() {
+            return {
+                //in vue.js, all properties must start with small letter
+                vocabs:[],
+                options:[],
+                language: new URLSearchParams(window.location.search).get("Language"),
+                currentPage: new URLSearchParams(window.location.search).get("CurrentPage"),
+                pageSize: new URLSearchParams(window.location.search).get("PageSize"),
+                correctAnswers:0,
+                wrongAnswers :0,
+                isMarked : false,
+                }
+            },
+            computed:{
+                half(){
+                    return Math.ceil(this.vocabs.length / 2);    
+                },
+                vocabs_firstHalf(){
+                    return this.vocabs.slice(0, this.half)
+                },
+                vocabs_secondHalf(){
+                    return this.vocabs.slice(-this.half)
+                }
+            },
+            created(){
+                this.load(1)
+            },
+            methods:{
+                load(){
+                    fetch(`../../api/review/match/?Language=${this.language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
+                    .then(response => response.json())
+                    .then(response => {
+                        let data = response.data.map((item, index) =>{
+                            app.options.push(item.chinese)
+                            return {
+                                text : item.text,
+                                chinese : item.chinese,
+                                answer: '',
+                                isReview : item.isReview,
+                                vocabId : item.vocabId,
+                                checked : false,
+                                selected: false,
+                                reviewId : item.reviewId,
+                                mark:'',
+                            }
+                        })
+                        this.vocabs = data
+                        app.options.shuffle()
+                    })
+                },
+                select(v){
+                    //remove it if there is answer
+                    if (v.answer){
+                        this.options.push(v.answer)
+                        v.answer = ""
+                    }else{
+                        for(a of this.vocabs_firstHalf){
+                            a.selected = false
+                        }
+                        for(b of this.vocabs_secondHalf){
+                            b.selected = false
+                        }
+                        v.selected = true
+                    }
+                },
+
+                matching(option){
+                    for(v of this.vocabs_firstHalf){
+                        if(v.selected){
+                            v.answer = option
+                            const i = this.options.indexOf(option)
+                            this.options.splice(i,1)
+                            v.selected = false
+                        }
+                    }
+                    for(v of this.vocabs_secondHalf){
+                        if(v.selected){
+                            v.answer = option
+                            const i = this.options.indexOf(option)
+                            this.options.splice(i,1)
+                            v.selected = false
+                        }
+                    }
+                },
+                async mark(){
+
+                    this.correctAnswers = 0
+                    this.wrongAnswers = 0
+
+                    for (v of this.vocabs_firstHalf){
+                        if (v.chinese == v.answer){
+                            v.mark = '<i class="fa fa-check ml-2" style="color:green"></i>'
+                            this.correctAnswers++
+                            // update passed to Review Table
+                            await fetch(`../../api/review/passed/?ReviewId=${v.reviewId}`)
+
+                        }else{
+                            v.mark = '<i class="fa fa-times ml-2" style="color:red"></i><span class="ml-2">' + v.chinese +'</span>'
+                            this.wrongAnswers++
+                        }
+                    }
+                    for (v of this.vocabs_secondHalf){
+                        if (v.chinese == v.answer){
+                            v.mark = '<i class="fa fa-check ml-2" style="color:green"></i>'
+                            this.correctAnswers++
+                            // update passed to Review Table
+                            await fetch(`../../api/review/passed/?ReviewId=${v.reviewId}`)
+                        }else{
+                            v.mark = '<i class="fa fa-times ml-2" style="color:red"></i><span class="ml-2">' + v.chinese +'</span>'
+                            this.wrongAnswers++
+                        }
+                    }
+                    this.isMarked = true  
+                },         
+
+            }
+        })
+        Array.prototype.shuffle = function() {
+            var i = this.length, j, temp;
+            if ( i == 0 ) return this;
+            while ( --i ) {
+                j = Math.floor( Math.random() * ( i + 1 ) );
+                temp = this[i];
+                this[i] = this[j];
+                this[j] = temp;
+            }
+            return this;
+        }
+    </script>
+}
+
+
+

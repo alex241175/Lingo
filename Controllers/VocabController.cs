@@ -29,7 +29,7 @@ namespace Lingo.Controllers
             public string Chinese { get; set; }       
             public string Note {get;set;}
             public string Category { get; set; }  
-            public int? EssayId { get; set; }   
+            public string EssayIds { get; set; }   
             public int? UserId { get; set; }  
             public bool IsReview { get; set; }
             public int? ReviewId { get; set; }     
@@ -63,7 +63,6 @@ namespace Lingo.Controllers
                     Chinese = v.Chinese,
                     Note = v.Note,
                     Category = v.Category,
-                    EssayId = v.EssayId,
                     UserId = v.UserId,
                     IsReview = t.VocabId != null ? true : false,
                     ReviewId = t.ReviewId                    
@@ -88,47 +87,46 @@ namespace Lingo.Controllers
             return Json(new { data = Results, count = count });
         }
 
-        // GET: api/vocab/review
-        [Route("~/api/vocab/review")]
-        [HttpGet]
-        public async Task<IActionResult> GetReview(string Language, int CurrentPage, int PageSize, int UserId)
-        {
-            // based on this sql
-            // select vocabs.*, r.ReviewId from vocabs left join (select * from reviews where UserId = 15) AS r on vocabs.VocabId = r.VocabId 
+        // // GET: api/vocab/review
+        // [Route("~/api/vocab/review")]
+        // [HttpGet]
+        // public async Task<IActionResult> GetReview(string Language, int CurrentPage, int PageSize, int UserId)
+        // {
+        //     // based on this sql
+        //     // select vocabs.*, r.ReviewId from vocabs left join (select * from reviews where UserId = 15) AS r on vocabs.VocabId = r.VocabId 
             
-            // get data source with review information if any
+        //     // get data source with review information if any
 
-            var vocabs = from v in _db.Vocabs
-                join r in ( from d in _db.Reviews where d.UserId == UserId select d ) 
-                on v.VocabId equals r.VocabId into tbl
-                from t in tbl.DefaultIfEmpty()
-                orderby v.VocabId
-                select new Result {
-                    VocabId = v.VocabId,
-                    Language = v.Language,
-                    Text = v.Text,
-                    Chinese = v.Chinese,
-                    Note = v.Note,
-                    Category = v.Category,
-                    EssayId = v.EssayId,
-                    UserId = v.UserId,
-                    IsReview = t.VocabId != null ? true : false,
-                    ReviewId = t.ReviewId                    
-                };
+        //     var vocabs = from v in _db.Vocabs
+        //         join r in ( from d in _db.Reviews where d.UserId == UserId select d ) 
+        //         on v.VocabId equals r.VocabId into tbl
+        //         from t in tbl.DefaultIfEmpty()
+        //         orderby v.VocabId
+        //         select new Result {
+        //             VocabId = v.VocabId,
+        //             Language = v.Language,
+        //             Text = v.Text,
+        //             Chinese = v.Chinese,
+        //             Note = v.Note,
+        //             Category = v.Category,
+        //             UserId = v.UserId,
+        //             IsReview = t.VocabId != null ? true : false,
+        //             ReviewId = t.ReviewId                    
+        //         };
 
-             //var vocabs = from v in _db.Vocabs select v;
-            // filter by language
-            if (!string.IsNullOrWhiteSpace(Language)){
-                vocabs = vocabs.Where(v => v.Language == Language);
-            }   
-            vocabs = vocabs.Where(v => v.IsReview == true).OrderBy(v=> v.ReviewId);
+        //      //var vocabs = from v in _db.Vocabs select v;
+        //     // filter by language
+        //     if (!string.IsNullOrWhiteSpace(Language)){
+        //         vocabs = vocabs.Where(v => v.Language == Language);
+        //     }   
+        //     vocabs = vocabs.Where(v => v.IsReview == true).OrderBy(v=> v.ReviewId);
             
-            var count = vocabs.Count();
-            // filter by page number
-            var Results = await vocabs.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToListAsync();
+        //     var count = vocabs.Count();
+        //     // filter by page number
+        //     var Results = await vocabs.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToListAsync();
 
-            return Json(new { data = Results, count = count });
-        }
+        //     return Json(new { data = Results, count = count });
+        // }
 
         // GET: api/vocab/typeahead
         [Route("~/api/vocab/typeahead")]
@@ -164,7 +162,6 @@ namespace Lingo.Controllers
                 Chinese = v.Chinese,
                 Note = v.Note,
                 Category = v.Category,
-                EssayId = v.EssayId,
                 UserId = v.UserId,
                 IsReview = t.VocabId != null ? true : false 
             };
@@ -191,16 +188,61 @@ namespace Lingo.Controllers
             return Json(new { data = await vocabs.ToListAsync(), randomList = randomList.ToList() });
         }
 
+            // GET: api/vocab/match
+        [Route("~/api/vocab/match")]
+        [HttpGet]
+        public async Task<IActionResult> GetMatch(string Language, string Category, int CurrentPage, int PageSize, int UserId)
+        {
+            var vocabs = from v in _db.Vocabs
+            join r in ( from d in _db.Reviews where d.UserId == UserId select d ) 
+            on v.VocabId equals r.VocabId into tbl
+            from t in tbl.DefaultIfEmpty()
+            orderby v.VocabId
+            select new Result{
+                VocabId = v.VocabId,
+                Language = v.Language,
+                Text = v.Text,
+                Chinese = v.Chinese,
+                Note = v.Note,
+                Category = v.Category,
+                UserId = v.UserId,
+                IsReview = t.VocabId != null ? true : false 
+            };
+            
+            //var vocabs = from v in _db.Vocabs select v;
+            // filter by language
+            if (!string.IsNullOrWhiteSpace(Language)){
+                vocabs = vocabs.Where(v => v.Language == Language);
+            }
+            // filter by category
+            if (!string.IsNullOrWhiteSpace(Category)){
+                vocabs = vocabs.Where(v => v.Category == Category);
+                if (Category == "User"){
+                    vocabs = vocabs.Where(v => v.UserId == UserId);
+                }
+            }
+            // filter by page number
+            vocabs = vocabs.OrderBy(v=>v.VocabId).Skip((CurrentPage - 1) * PageSize).Take(PageSize);
+            var count = vocabs.Count();
+
+            return Json(new { data = await vocabs.ToListAsync()});
+        }
+
          // GET: api/vocab/essay/5
         [Route("~/api/vocab/essay/{EssayId}")]
         [HttpGet]
-        public async Task<IActionResult> GetAllByEssayId(int EssayId )
+        public async Task<IActionResult> GetAllByEssayId(string EssayId )
         {
-            return Json(new { data = await _db.Vocabs.Where(v => v.EssayId == EssayId).ToListAsync() });
+            //var vocab = from v in _db.Vocabs where v.EssayIds.Length > 0
+            //select v;
+            //return Json( new { data = await vocab.ToListAsync()} );
+            return Json(new { data = await _db.Vocabs.Where(v => v.EssayIds.Contains(EssayId)).ToListAsync() });
+            //return Json(new { data = await _db.Vocabs.Where(v => v.EssayIds.Any(p => p == EssayId)).ToListAsync() });
         }
 
-        // GET api/vocab/5
-        [HttpGet("{VocabId}")]
+        // GET api/vocab/id/5
+        [Route("~/api/vocab/id/{VocabId}")]
+        [HttpGet]
         public async Task<IActionResult> Get(int VocabId)
         {
             
@@ -216,8 +258,37 @@ namespace Lingo.Controllers
                     Chinese = v.Chinese,
                     Note = v.Note,
                     Category = v.Category,
-                    EssayId = v.EssayId,
                     UserId = v.UserId,
+                    EssayIds = v.EssayIds,
+                    IsReview = t.VocabId != null ? true : false 
+                };
+
+            // var vocab = await _db.Vocabs.FirstOrDefaultAsync(v => v.VocabId == VocabId);
+
+            return Ok(await vocab.FirstOrDefaultAsync());
+        }
+
+        // GET api/vocab/text/word
+        [Route("~/api/vocab/text/{Text}")]
+        [HttpGet]
+        public async Task<IActionResult> GetByText(string Text)
+        {
+            
+            var vocab = from v in _db.Vocabs
+                join r in ( from d in _db.Reviews where d.UserId == UserId select d ) 
+                on v.VocabId equals r.VocabId into tbl
+                from t in tbl.DefaultIfEmpty()
+                where v.Text.ToLower() == Text.ToLower()
+                where v.Category == "User"
+                select new Result{
+                    VocabId = v.VocabId,
+                    Language = v.Language,
+                    Text = v.Text,
+                    Chinese = v.Chinese,
+                    Note = v.Note,
+                    Category = v.Category,
+                    UserId = v.UserId,
+                    EssayIds = v.EssayIds != null ? v.EssayIds : "", 
                     IsReview = t.VocabId != null ? true : false 
                 };
 
@@ -227,15 +298,15 @@ namespace Lingo.Controllers
         }
 
         // GET api/vocab/translate/text
-        [Route("~/api/vocab/translate/{sourceText}")]
+        [Route("~/api/vocab/translate/{sourceLanguage}/{sourceText}")]
         [HttpGet]
-        public async Task<IActionResult> Translate(string sourceText)
+        public async Task<IActionResult> Translate(string sourceLanguage, string sourceText)
         {
             using var client = new HttpClient();
             string api_key = "AIzaSyDDTxvvy4APx1xLDuMYHc0BU2HMd8lBVHI";
             string target = "zh";
             //string source = "en";  // Malay - ms
-            string url = $"https://translation.googleapis.com/language/translate/v2?key={api_key}&q={sourceText}&target={target}";
+            string url = $"https://translation.googleapis.com/language/translate/v2?key={api_key}&q={sourceText}&source={sourceLanguage}&target={target}";
             var result = await client.GetStringAsync(url);
             return Json(result);
         }
@@ -260,7 +331,6 @@ namespace Lingo.Controllers
             //  <br>
             //  <div class='t'>词形变化:</div><div id='t'>过去式: <i>missed</i> 过去分词: <i>missed</i> 
             //  现在分词: <i>missing</i> 第三人称单数: <i>misses</i> </div></div><br>";
-             Console.WriteLine("Testing...");
              string patternE = "<div id=\"e\">(.*?)</div>";   // definition
              string patternS = "<div id=\"s\">(.*?)</div>";   // usage sentence
              string patternT = "<div id=\"t\">(.*?)</div>";   // tenses

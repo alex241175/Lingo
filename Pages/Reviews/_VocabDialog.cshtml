@@ -1,0 +1,51 @@
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab (' + vocab.vocabId + ')': 'New Vocab'}}</h5>
+                    @* <div v-if="vocab.vocabId">
+                        <button v-if="isThisReview" class="btn" v-on:click="unreview(vocab.vocabId,-1)"><i class="fa fa-bookmark fa-lg"></i></button>
+                    </div> *@
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                         <div class="form-group">
+                            <label for="text" class="col-form-label">Language:</label>                            
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="English">English
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="Malay">Malay
+                                </label>
+                            </div>
+                         </div>
+                        <div class="form-group">
+                            <label for="text" class="col-form-label">Text:</label>
+                            <input type="text" class="form-control" id="text" v-model="vocab.text" autocomplete="off">
+                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
+                            <button type="button" v-if="vocab.language == 'English'" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Chinese:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="vocab.chinese" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="note" class="col-form-label">Note:</label>
+                            <div v-if="!editNote" class="hand" v-on:click="editNote = true" v-html="vocab.note"></div>
+                            <textarea v-if="editNote" v-on:blur="editeNote == false" rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="upsert" accesskey="s" title="Ctrl+Alt+s">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -18,10 +18,10 @@
                 </li>
             </ol>
         </div>
-        <div class="col-1 vocab-item">
+        @* <div class="col-1 vocab-item">
             <button v-if="v.isReview" class="btn" v-on:click="unreview(v.vocabId,index)"><i class="fa fa-bookmark fa-lg"></i></button>
             <button v-if="!v.isReview" class="btn" v-on:click="review(v.vocabId,index)"><i class="fa fa-bookmark-o fa-lg"></i></button>
-        </div>
+        </div> *@
     </div>
     <!-- vocab list -->
     <!-- result -->
@@ -29,7 +29,6 @@
         <div>正確：<span v-text="correctAnswers"></span></div>
         <div>錯誤：<span v-text="wrongAnswers"></span></div>
         <div>總共：<span v-text="vocabs.length"></span></div>
-        @* <button class="btn btn-primary mt-4" v-on:click="record">Record Score</button> *@
     </div>
 </div>
 
@@ -43,7 +42,6 @@
                 //in vue.js, all properties must start with small letter
                 vocabs:[],
                 language: new URLSearchParams(window.location.search).get("Language"),
-                category: new URLSearchParams(window.location.search).get("Category"),
                 currentPage: new URLSearchParams(window.location.search).get("CurrentPage"),
                 pageSize: new URLSearchParams(window.location.search).get("PageSize"),
                 correctAnswers:0,
@@ -55,7 +53,7 @@
             },
             methods:{
                 load(){
-                    fetch(`../../api/vocab/mcq/?Language=${this.language}&Category=${this.category}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
+                    fetch(`../../api/review/mcq/?Language=${this.language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
                     .then(response => response.json())
                     .then(response => {
                         const options = response.randomList.map(item => item.chinese)
@@ -67,16 +65,20 @@
                                 isReview : item.isReview,
                                 vocabId : item.vocabId,
                                 checked : false,
+                                reviewId : item.reviewId
                             }
                         })
                         this.vocabs = data
                     })
                 },
-                check(e, option, v){
+                async check(e, option, v){
                     if(!v.checked){
                         if(option == v.answer){
                             $('<i class="fa fa-check ml-2" style="color:green"></i>').insertAfter($(e.target))
                             this.correctAnswers++
+                            // update passed to Review Table
+                            await fetch(`../../api/review/passed/?ReviewId=${v.reviewId}`)
+
                         }else{
                             $('<i class="fa fa-times ml-2" style="color:red"></i>').insertAfter($(e.target))
                             this.wrongAnswers++
@@ -118,30 +120,6 @@
                     .then(response => {
                         this.vocabs[index].isReview = false
                     })          
-                },
-                record(){
-                    // first letter convert to capital letter
-                    const result = {
-                        Language: this.language,
-                        Page:this.category + '-' + this.currentPage,
-                        Score: Math.round((this.correctAnswers / this.vocabs.length) * 100),
-                        UserId:@auth.UserId,
-                    }
-                    fetch('../../api/result',{
-                        method: 'POST', 
-                        headers: {
-                        'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(result),
-                    })
-                    .then(response => response.json())
-                    .then(response => {
-                        toastr.options = {
-                            timeOut: "1000",
-                        }
-                        toastr.success('Your score has been added to result')
-                       
-                    })
                 },
             }
         })

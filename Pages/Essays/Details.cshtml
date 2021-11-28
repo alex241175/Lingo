@@ -43,7 +43,7 @@
                 <div class="col-3 vocab-item" v-text="v.chinese"></div>
                 <div class="col-3 vocab-item row">
                     <button class="btn" v-on:click="updating(v)"><i class="fa fa-edit fa-lg"></i></button>
-                    <button class="btn" v-on:click="remove(index, v.vocabId, v.text)"><i class="fa fa-trash-o fa-lg"></i></button>
+                    <button class="btn" v-on:click="remove(index, v)"><i class="fa fa-trash-o fa-lg"></i></button>
                 </div>
                 <div v-bind:id="'collapse'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
                     <div class="card-body" v-html="v.note"></div>
@@ -56,7 +56,11 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab' : 'New Vocab'}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab (' + vocab.vocabId + ')' : 'New Vocab'}}</h5>
+                    <div v-if="vocab.vocabId">
+                        <button v-if="isThisReview" class="btn" v-on:click="unreview(vocab.vocabId)"><i class="fa fa-bookmark fa-lg"></i></button>
+                        <button v-if="!isThisReview" class="btn" v-on:click="review(vocab.vocabId)"><i class="fa fa-bookmark-o fa-lg"></i></button>
+                    </div>
                     <button type="button" class="close" aria-label="Close" v-on:click="cancelAddingVocabFromEssay">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -67,7 +71,7 @@
                             <label for="text" class="col-form-label">Text:</label>
                             <input type="text" class="form-control" id="text" v-model="vocab.text">
                             <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
-                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
+                            <button v-if="vocab.language == 'English'" type="button" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
                         </div>
                         <div class="form-group">
                             <label for="chinese" class="col-form-label">Chinese:</label>
@@ -81,6 +85,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
+                    <div v-if="!vocab.vocabId">
+                        <input type="checkbox" v-model="addToReview">
+                        <label>Add to Review</label>
+                    </div>
                     <button type="button" class="btn btn-secondary" v-on:click="cancelAddingVocabFromEssay">Close</button>
                     <button type="button" class="btn btn-primary" v-on:click="upsert">Send</button>
                 </div>
@@ -100,12 +108,14 @@
                 vocabs:[],
                 isSaveEssay:false,
                 editNote: false,
+                addToReview: false,
+                isThisReview: false,
                 vocab:{
                     language: '',
                     text:'',
                     chinese:'',
                     note:'',
-                    essayId: null,
+                    essayIds: '',
                     category:'',
                     userId:null,  
                 },
@@ -114,7 +124,7 @@
                     text:'',
                     chinese:'',
                     note:'',
-                    essayId: @Model.Essay.EssayId,
+                    essayIds: '@Model.Essay.EssayId',
                     category:'User',
                     userId:@auth.UserId,
                 },
@@ -129,6 +139,7 @@
                         .then(response => response.json())
                         .then(response => {
                             this.vocabs = response.data
+                            // convert to empty array if null
                             this.syncVocabIndex()
                         })
                         // ajax not working           
@@ -152,17 +163,20 @@
                 upsert(){
                     let operation = 'POST'
                     // first letter convert to capital letter
+                    //add this Essayids array
+
                     const vocab = {
                         Language: this.vocab.language,
                         Text:this.vocab.text,
                         Chinese:this.vocab.chinese,
                         Note:this.vocab.note,                
-                        EssayId: this.vocab.essayId,
+                        EssayIds: this.vocab.essayIds,
                         Category:this.vocab.category,
                         UserId:this.vocab.userId,
                     }
-                    if (this.vocab.vocabId){
+                    if (this.vocab.vocabId){   // updating
                         vocab.VocabId = this.vocab.vocabId
+                        vocab.EssayIds = this.vocab.essayIds + ',' + '@Model.Essay.EssayId'
                         operation = 'PUT'
                     }
                     fetch('../../api/vocab',{
@@ -183,11 +197,11 @@
                         }
                     })
                 },
-                remove(index, vocabId, text){
+                remove(index, v){
                     // remove highlighted vocab in essay
                     $('.index').each(function() {
                         if ($(this).html() == index + 1){
-                            $(this).parent().replaceWith(text)
+                            $(this).parent().replaceWith(v.text)
                         }
                     })
                     //refresh all index
@@ -199,8 +213,23 @@
                     //save essay to db
                     this.saveEssay()
                     
-                    // remove vocab in db
-                    fetch('../../api/vocab/'+vocabId,{ method:'delete'})
+                    // update vocab in db
+                    const essayId = '@Model.Essay.EssayId'
+                    let essayIds = v.essayIds.split(',')
+                    if (essayIds.length > 1){
+                        const i = essayIds.indexOf(essayId)
+                        essayIds.splice(i,1)
+                        v.essayIds = essayIds.join()             
+                    }else{
+                        v.essayIds = ''
+                    }
+                     fetch('../../api/vocab',{
+                        method: 'PUT', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(v),
+                    })
                     .then(response => response.json())
                     .then(response => {
                         this.loadVocabList()
@@ -229,10 +258,8 @@
                 },
 
                 addingVocabFromEssay(){
-                    const selection = window.getSelection().toString()
-                    if (selection){
-                        this.vocab = {...this.defaultVocab}
-                        this.vocab.text = selection
+                    const selection = window.getSelection().toString().trim()
+                    if (selection){  
                         // number and bold the selected text
                         insertSurroundingTagAtSelection()
                         //this.lastIndex++
@@ -246,7 +273,21 @@
                         //clear selection in essay
                         window.getSelection().empty() 
                         this.isSaveEssay = true
-                        $('#modal').modal('show')
+
+                        //lookup in vocab table
+                        $.get(`../../api/vocab/text/${selection}`, function(data, status, xhr)
+                        {                            
+                            if (xhr.status == 200){
+                                app.vocab = data
+                                app.editNote = false
+                                app.isThisReview = app.vocab.isReview
+                                delete app.vocab.isReview
+                            } else if (xhr.status == 204){   // no response
+                                app.vocab = {...app.defaultVocab}
+                                app.vocab.text = selection
+                            }
+                            $('#modal').modal('show')
+                         });
                     }else{
 
                         // alert("Please select a vocab first")
@@ -270,8 +311,12 @@
                 },
 
                 translate(){
-                    const sourceText = this.vocab.text                    
-                    fetch(`../../api/vocab/translate/${sourceText}`)
+                    const sourceText = this.vocab.text
+                    const language = '@Model.Essay.Language'
+                    let sourceLanguage = ''
+                    if(language == "English") sourceLanguage = "en"
+                    if(language == "Malay") sourceLanguage = "ms"
+                    fetch(`../../api/vocab/translate/${sourceLanguage}/${sourceText}`)
                     .then(response => response.json())
                     .then(response => {
                         const obj = JSON.parse(response);
@@ -288,7 +333,31 @@
                     .then(response => {
                         this.vocab.note = response.e + '<br>' + response.s  + '<br>' + response.t                    
                     })
-                }
+                },
+                review(vocabId){
+                    const review = {
+                        VocabId: vocabId,
+                        UserId:@auth.UserId,
+                    }
+                    fetch('../../api/review',{
+                        method: 'POST', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(review),
+                    })
+                    .then(response => {
+                        this.isThisReview = true    
+                    })
+                },
+                unreview(reviewId){
+                    fetch('./api/review/' + reviewId,{
+                        method: 'DELETE',        
+                    })
+                    .then(response => {
+                        this.isThisReview = false
+                    })          
+                },
             }
         })
     </script>

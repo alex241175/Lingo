@@ -9,7 +9,7 @@ namespace Lingo.Models
         [Required]
         public int ReviewId { get; set; } 
         public int? VocabId { get; set;}
-        public int? UserId { get; set;}         
-
+        public int? UserId { get; set;}
+        public int? Passed { get; set;}
     }
 }

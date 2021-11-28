@@ -5,7 +5,7 @@
 @using Lingo.Services
 @inject Auth auth
 
-<div id="app" class="row">
+<div id="app" class="row" v-cloak>
     <!-- Review Vocab list -->
      <div class="col-lg-10">
         <h3>Review Vocabulary List</h3>
@@ -21,12 +21,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-outline-secondary ml-4" v-on:click="toggleAllChinese">Chinese</button>
-                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goVocab">>Vocab</button>
+                    <button type="button" class="btn btn-outline-secondary ml-4" v-on:click="refresh">Refresh</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="toggleAllChinese">Chinese</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goMCQ">MCQ</button>
+                    <button type="button" class="btn btn-outline-secondary ml-2" v-on:click="goMatch">Match</button>  
                     <button type="button" class="btn btn-light btn-sm mx-2" v-on:click="selectMode = !selectMode">Select</button>
                     <div v-if="selectMode" class="ml-4">
                         <button type="button" class="btn btn-light btn-sm ml-2" v-on:click="unreviewSelected">Clear Review</button>
-                    </div>    
+                    </div>
+                   <button type="button" class="btn"  v-on:click="openSettingDialog"><i class="fa fa-cog fa-lg"></i></button>  
                 </div>
             </form>
             <partial name="_PaginationVue" />            
@@ -45,71 +48,29 @@
                         <input class="checkbox" type="checkbox" v-bind:value="v.reviewId" v-model="selectedReviewIds">
                     </div>
                     <div class="col-1 vocab-item">{{ index + 1 }}</div>
-                    <div class="col-3 vocab-item hand" v-text="v.text" data-toggle="collapse" v-bind:data-target="'#collapse' + index" ></div>
+                    <div class="col-4 vocab-item">
+                        <span v-text="v.text"></span>
+                        <span class="pull-right">
+                            <i v-if="!v.showNote" class="fa fa-angle-right fa-lg hand"  v-on:click="toggleNote(v, index)"></i>
+                            <i v-if="v.showNote" class="fa fa-angle-down fa-lg hand"  v-on:click="toggleNote(v, index)"></i>
+                        </span>
+                    </div>
                     <div class="col-3 vocab-item hand" v-on:click="v.showChinese = !v.showChinese"><span v-if="v.showChinese" v-text="v.chinese"></span></div>
                     <div class="col-3 vocab-item">
-                        <button v-if="v.isReview" class="btn" v-on:click="unreview(v.reviewId)"><i class="fa fa-bookmark fa-lg"></i></button>
+                        @* <button v-if="v.isReview" class="btn" v-on:click="unreview(v.reviewId)"><i class="fa fa-bookmark fa-lg"></i></button> *@
                         <button class="btn" v-on:click="updating(v)"><i class="fa fa-edit fa-lg"></i></button>
                     </div>
-                    <div v-bind:id="'collapse'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
+                    <div v-bind:id="'collapse-'+ index" class="collapse col-12 mb-4" style="background-color:lightyellow;">
                         <div class="card-body" v-html="v.note"></div>
                     </div>              
                 </div>
             </div>
         </div>       
     </div> <!-- vocab list -->
-    <!-- modal -->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ vocab.vocabId ? 'Update Vocab (' + vocab.vocabId + ')': 'New Vocab'}}</h5>
-                    <div v-if="vocab.vocabId">
-                        <button v-if="isThisReview" class="btn" v-on:click="unreview(vocab.vocabId,-1)"><i class="fa fa-bookmark fa-lg"></i></button>
-                    </div>
-                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                         <div class="form-group">
-                            <label for="text" class="col-form-label">Language:</label>                            
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="English">English
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" v-model="vocab.language" value="Malay">Malay
-                                </label>
-                            </div>
-                         </div>
-                        <div class="form-group">
-                            <label for="text" class="col-form-label">Text:</label>
-                            <input type="text" class="form-control" id="text" v-model="vocab.text" autocomplete="off">
-                            <button type="button" class="btn btn-primary mt-2 mx-2" v-on:click="translate">Google Translate</button>
-                            <button type="button" v-if="vocab.language == 'English'" class="btn btn-primary mt-2 mx-2" v-on:click="dict">海词词典</button>
-                        </div>
-                        <div class="form-group">
-                            <label for="chinese" class="col-form-label">Chinese:</label>
-                            <input type="text" class="form-control" id="chinese" v-model="vocab.chinese" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label for="note" class="col-form-label">Note:</label>
-                            <div v-if="!editNote" class="hand" v-on:click="editNote = true" v-html="vocab.note"></div>
-                            <textarea v-if="editNote" v-on:blur="editeNote == false" rows="5" type="text" class="form-control" id="note" v-model="vocab.note" autocomplete="off"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" v-on:click="upsert" accesskey="s" title="Ctrl+Alt+s">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- modal vocab -->
+    <partial name="_VocabDialog" />
+    <!-- modal setting -->
+    <partial name="_SettingDialog" />  
 </div>
 
 @section Scripts{ 
@@ -120,6 +81,7 @@
             data() {
             return {
                 //in vue.js, all properties must start with small letter
+                position: '',
                 filterLanguage:'English',
                 currentLanguage:'Choose...',
                 showAllChinese: true,
@@ -152,10 +114,18 @@
                 goToPage:'',
                 pageRangeSize: 2,
                 count: 0,
+                reviewSetting:{
+                    reviewSettingId:0,
+                    language : '',
+                    lastVocabId : 0,
+                    vocabsPerDay : 0,
+                    passedThreshold : 0,
+                    vocabsCategory: ''
+                },
             }
             },
             created(){
-                this.load(1)
+                this.refresh()
             },
             computed:{
                 totalPages(){
@@ -193,29 +163,93 @@
                     }
                     const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
                     const category = this.filterCategory
-                    fetch(`../../api/vocab/review?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
+                    fetch(`../../api/review?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}&UserId=@auth.UserId`)
                     .then(response => response.json())
                     .then(response => {
                         var vocabs = response.data.map(item => {
                             return {
                                 ...item,
                                 showChinese: true,
+                                showNote: false,
                             }
                         })                        
                         this.vocabs = vocabs
                         this.count = response.count
+                        this.position = response.position
                         this.goToPage = ''
                     })
                 },
-                goVocab(){
-                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
-                    location.href= `../../Vocabs?Language=${language}&Category=&CurrentPage=1&PageSize=${this.pageSize}`                  
+
+                //initialize review vocab set for the day
+                refresh(){
+                    fetch(`../../api/review/refresh?Language=${this.filterLanguage}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        const newVocabsCount  = response.data
+                        if (newVocabsCount > 0){
+                            toastr.options = { timeOut: "2000", positionClass: "toast-bottom-right"}
+                            toastr.info('New vocabs added for review : ' + newVocabsCount)
+                        }else {
+                            toastr.options = { timeOut: "2000", positionClass: "toast-bottom-right"}
+                            toastr.info('no new vocabs added')
+                        }
+                        this.load(1)
+                    })
                 },
                 toggleAllChinese(){
                     this.showAllChinese = !this.showAllChinese
                     this.vocabs.forEach(
                         v => v.showChinese = this.showAllChinese
                     )
+                },
+                toggleNote(v, index){
+                    v.showNote = !v.showNote
+                    let note = $('#collapse-'+index).children(":first").html()
+                    if (note == '' && v.language == "English"){  //if note is empty
+                        toastr.options = { timeOut: "2000",}
+                        toastr.info('Looking up Note')
+                        const sourceText = v.text                    
+                        fetch(`../../api/vocab/dict/${sourceText}`)
+                        .then(response => response.json())
+                        .then(response => {
+                            const result = response.e + '<br>' + response.s  + '<br>' + response.t                    
+                            $('#collapse-'+index).children(":first").html(result)
+                            app.vocabs[index].note = result
+                            // save to database
+                            const vocab = {
+                                VocabId: v.vocabId,
+                                Language: v.language,
+                                Text:v.text,
+                                Chinese:v.chinese,
+                                Note:result,
+                                EssayId: v.essayId,
+                                Category:v.category,
+                                UserId:v.userId,
+                            }
+                            fetch('./api/vocab',{
+                                method: 'PUT', 
+                                headers: {
+                                'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(vocab),
+                            })
+                            .then(response => {
+                                // toggle
+                                $('#collapse-'+index).collapse('toggle')
+                            })
+                        })
+                    }else{
+                        $('#collapse-'+index).collapse('toggle')
+                    }
+
+                },
+                goMCQ(){
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    location.href= `./Reviews/mcq/?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}`                  
+                },
+                goMatch(){
+                    const language = this.currentLanguage == "Choose..." ? "" : this.currentLanguage 
+                    location.href= `./Reviews/match/?Language=${language}&CurrentPage=${this.currentPage}&PageSize=${this.pageSize}`                  
                 },
                 updating(v){
                     this.vocab = {...v}
@@ -315,7 +349,32 @@
                         body: JSON.stringify(this.selectedReviewIds),
                     })
                     .then(response => {
-                        this.load(this.currentPage)  
+                        this.load(this.currentPage) 
+                        this.allSelected = false
+                    })
+                },
+                openSettingDialog(){
+                    fetch('./api/review/setting?language=' + this.filterLanguage)
+                    .then(response => response.json())
+                    .then(response => {
+                        this.reviewSetting = response.data                         
+                        $('#modalSetting').modal('show')
+                    })
+                },
+                closeSettingDialog(){
+                    $('#modalSetting').modal('hide')
+                },
+                updateSetting(){
+                    fetch('./api/review/setting',{
+                        method: 'PUT', 
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(this.reviewSetting),
+                    })
+                    .then(response => response.json())
+                    .then(response => {
+                        $('#modalSetting').modal('hide')
                     })
                 }
             }

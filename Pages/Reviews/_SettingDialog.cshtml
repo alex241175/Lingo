@@ -1,0 +1,42 @@
+  <!-- modal vocab -->
+    <div class="modal fade" id="modalSetting" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Review Setting </h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modalSetting" v-on:click="closeSettingDialog">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                         <div class="form-group">
+                            <label for="text" class="col-form-label">Language:</label>                            
+                            <span v-text="reviewSetting.language"></span>
+                         </div>
+                        <div class="form-group">
+                            <label for="text" class="col-form-label">Last Vocab Id:</label>
+                            <input type="text" class="form-control" id="text" v-model="reviewSetting.lastVocabId" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Vocabs Per Day:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="reviewSetting.vocabsPerDay" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Passed Threshold:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="reviewSetting.passedThreshold" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="chinese" class="col-form-label">Vocabs Category:</label>
+                            <input type="text" class="form-control" id="chinese" v-model="reviewSetting.vocabsCategory" autocomplete="off">
+                        </div>
+ 
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modalSetting" v-on:click="closeSettingDialog">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="updateSetting">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
